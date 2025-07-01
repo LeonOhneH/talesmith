@@ -1,0 +1,819 @@
+!SESSION 2025-07-01 11:30:49.596 -----------------------------------------------
+eclipse.buildId=4.35.0.20250306-0811
+java.version=21.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
+Framework arguments:  -product org.eclipse.epp.package.modeling.product /home/leon/talesmith
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.modeling.product /home/leon/talesmith
+
+!ENTRY org.eclipse.jdt.launching 4 4 2025-07-01 11:32:22.402
+!MESSAGE Datei oder Verzeichnis nicht gefunden
+!STACK 0
+java.io.IOException: Datei oder Verzeichnis nicht gefunden
+	at java.base/java.io.UnixFileSystem.createFileExclusively0(Native Method)
+	at java.base/java.io.UnixFileSystem.createFileExclusively(UnixFileSystem.java:258)
+	at java.base/java.io.File.createNewFile(File.java:1045)
+	at org.eclipse.jdt.internal.launching.LaunchingPlugin.writeInstallInfo(LaunchingPlugin.java:1110)
+	at org.eclipse.jdt.internal.launching.LaunchingPlugin$1$1.saving(LaunchingPlugin.java:584)
+	at org.eclipse.core.internal.resources.SaveManager.executeLifecycle(SaveManager.java:453)
+	at org.eclipse.core.internal.resources.SaveManager$1.run(SaveManager.java:269)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.core.internal.resources.SaveManager.broadcastLifecycle(SaveManager.java:272)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1226)
+	at org.eclipse.core.internal.resources.Workspace.save(Workspace.java:2498)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor.lambda$1(IDEWorkbenchAdvisor.java:555)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.core.resources 4 2 2025-07-01 11:32:22.407
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 1
+org.eclipse.core.runtime.CoreException: Problems while saving variables and containers
+	at org.eclipse.jdt.internal.core.JavaModelManager.saveVariablesAndContainers(JavaModelManager.java:4460)
+	at org.eclipse.jdt.internal.core.JavaModelManager.savingTimed(JavaModelManager.java:4725)
+	at org.eclipse.jdt.internal.core.JavaModelManager.saving(JavaModelManager.java:4711)
+	at org.eclipse.core.internal.resources.SaveManager.executeLifecycle(SaveManager.java:453)
+	at org.eclipse.core.internal.resources.SaveManager$1.run(SaveManager.java:269)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.core.internal.resources.SaveManager.broadcastLifecycle(SaveManager.java:272)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1226)
+	at org.eclipse.core.internal.resources.Workspace.save(Workspace.java:2498)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor.lambda$1(IDEWorkbenchAdvisor.java:555)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: java.io.FileNotFoundException: /home/leon/talesmith/.metadata/.plugins/org.eclipse.jdt.core/variablesAndContainers.dat (Datei oder Verzeichnis nicht gefunden)
+	at java.base/java.io.FileOutputStream.open0(Native Method)
+	at java.base/java.io.FileOutputStream.open(FileOutputStream.java:289)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:230)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:179)
+	at org.eclipse.jdt.internal.core.JavaModelManager.saveVariablesAndContainers(JavaModelManager.java:4455)
+	... 10 more
+!SUBENTRY 1 org.eclipse.jdt.core 4 4 2025-07-01 11:32:22.407
+!MESSAGE Problems while saving variables and containers
+!STACK 0
+java.io.FileNotFoundException: /home/leon/talesmith/.metadata/.plugins/org.eclipse.jdt.core/variablesAndContainers.dat (Datei oder Verzeichnis nicht gefunden)
+	at java.base/java.io.FileOutputStream.open0(Native Method)
+	at java.base/java.io.FileOutputStream.open(FileOutputStream.java:289)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:230)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:179)
+	at org.eclipse.jdt.internal.core.JavaModelManager.saveVariablesAndContainers(JavaModelManager.java:4455)
+	at org.eclipse.jdt.internal.core.JavaModelManager.savingTimed(JavaModelManager.java:4725)
+	at org.eclipse.jdt.internal.core.JavaModelManager.saving(JavaModelManager.java:4711)
+	at org.eclipse.core.internal.resources.SaveManager.executeLifecycle(SaveManager.java:453)
+	at org.eclipse.core.internal.resources.SaveManager$1.run(SaveManager.java:269)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.core.internal.resources.SaveManager.broadcastLifecycle(SaveManager.java:272)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1226)
+	at org.eclipse.core.internal.resources.Workspace.save(Workspace.java:2498)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor.lambda$1(IDEWorkbenchAdvisor.java:555)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+!SUBENTRY 1 org.eclipse.jdt.core 4 4 2025-07-01 11:32:22.407
+!MESSAGE Problems while saving variables and containers
+!STACK 0
+java.io.FileNotFoundException: /home/leon/talesmith/.metadata/.plugins/org.eclipse.jdt.core/variablesAndContainers.dat (Datei oder Verzeichnis nicht gefunden)
+	at java.base/java.io.FileOutputStream.open0(Native Method)
+	at java.base/java.io.FileOutputStream.open(FileOutputStream.java:289)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:230)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:179)
+	at org.eclipse.jdt.internal.core.JavaModelManager.saveVariablesAndContainers(JavaModelManager.java:4455)
+	at org.eclipse.jdt.internal.core.JavaModelManager.savingTimed(JavaModelManager.java:4725)
+	at org.eclipse.jdt.internal.core.JavaModelManager.saving(JavaModelManager.java:4711)
+	at org.eclipse.core.internal.resources.SaveManager.executeLifecycle(SaveManager.java:453)
+	at org.eclipse.core.internal.resources.SaveManager$1.run(SaveManager.java:269)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
+	at org.eclipse.core.internal.resources.SaveManager.broadcastLifecycle(SaveManager.java:272)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1226)
+	at org.eclipse.core.internal.resources.Workspace.save(Workspace.java:2498)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor.lambda$1(IDEWorkbenchAdvisor.java:555)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.mylyn.tasks.core 4 0 2025-07-01 11:32:22.417
+!MESSAGE Could not write: /home/leon/talesmith/.metadata/.mylyn/repositories.xml.zip
+!STACK 0
+java.io.IOException: Datei oder Verzeichnis nicht gefunden
+	at java.base/java.io.UnixFileSystem.createFileExclusively0(Native Method)
+	at java.base/java.io.UnixFileSystem.createFileExclusively(UnixFileSystem.java:258)
+	at java.base/java.io.File.createNewFile(File.java:1045)
+	at org.eclipse.mylyn.internal.tasks.core.TaskRepositoriesExternalizer.writeRepositoriesToXML(TaskRepositoriesExternalizer.java:58)
+	at org.eclipse.mylyn.internal.tasks.core.TaskRepositoryManager.saveRepositories(TaskRepositoryManager.java:431)
+	at org.eclipse.mylyn.internal.tasks.core.RepositoryExternalizationParticipant.save(RepositoryExternalizationParticipant.java:79)
+	at org.eclipse.mylyn.internal.tasks.core.externalization.AbstractExternalizationParticipant.execute(AbstractExternalizationParticipant.java:75)
+	at org.eclipse.mylyn.internal.tasks.core.externalization.ExternalizationManager$ExternalizationJob.run(ExternalizationManager.java:227)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.ui.ide 4 4 2025-07-01 11:32:23.178
+!MESSAGE Problems saving workspace
+
+!ENTRY org.eclipse.ui.ide 4 1 2025-07-01 11:32:23.179
+!MESSAGE Problems occurred while trying to save the state of the workbench.
+!SUBENTRY 1 org.eclipse.core.resources 4 568 2025-07-01 11:32:23.179
+!MESSAGE Could not write workspace metadata '/home/leon/talesmith/.metadata/.plugins/org.eclipse.core.resources/.root/1.tree'.
+!STACK 0
+java.io.FileNotFoundException: /home/leon/talesmith/.metadata/.plugins/org.eclipse.core.resources/.root/1.tree (Datei oder Verzeichnis nicht gefunden)
+	at java.base/java.io.FileOutputStream.open0(Native Method)
+	at java.base/java.io.FileOutputStream.open(FileOutputStream.java:289)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:230)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:179)
+	at org.eclipse.core.internal.localstore.SafeFileOutputStream.<init>(SafeFileOutputStream.java:55)
+	at org.eclipse.core.internal.resources.SaveManager.saveTree(SaveManager.java:1424)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1230)
+	at org.eclipse.core.internal.resources.Workspace.save(Workspace.java:2498)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor.lambda$1(IDEWorkbenchAdvisor.java:555)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.jdt.ui 4 10001 2025-07-01 11:32:23.283
+!MESSAGE Internal Error
+!STACK 0
+java.io.FileNotFoundException: /home/leon/talesmith/.metadata/.plugins/org.eclipse.jdt.ui/QualifiedTypeNameHistory.xml (Datei oder Verzeichnis nicht gefunden)
+	at java.base/java.io.FileOutputStream.open0(Native Method)
+	at java.base/java.io.FileOutputStream.open(FileOutputStream.java:289)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:230)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:179)
+	at org.eclipse.jdt.internal.corext.util.History.save(History.java:183)
+	at org.eclipse.jdt.internal.ui.JavaPlugin.stop(JavaPlugin.java:544)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$3.run(BundleContextImpl.java:896)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$3.run(BundleContextImpl.java:1)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:571)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.stop(BundleContextImpl.java:888)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.stopWorker0(EquinoxBundle.java:1080)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.stopWorker(EquinoxBundle.java:399)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:699)
+	at org.eclipse.osgi.container.Module.stop(Module.java:557)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.decStartLevel(ModuleContainer.java:2154)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:2023)
+	at org.eclipse.osgi.container.SystemModule.stopWorker(SystemModule.java:281)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule.stopWorker(EquinoxBundle.java:225)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:699)
+	at org.eclipse.osgi.container.Module.stop(Module.java:557)
+	at org.eclipse.osgi.container.SystemModule.stop(SystemModule.java:212)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule$1.run(EquinoxBundle.java:244)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+!ENTRY org.eclipse.jdt.ui 4 10001 2025-07-01 11:32:23.283
+!MESSAGE Internal Error
+!STACK 0
+java.io.FileNotFoundException: /home/leon/talesmith/.metadata/.plugins/org.eclipse.jdt.ui/OpenTypeHistory.xml (Datei oder Verzeichnis nicht gefunden)
+	at java.base/java.io.FileOutputStream.open0(Native Method)
+	at java.base/java.io.FileOutputStream.open(FileOutputStream.java:289)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:230)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:179)
+	at org.eclipse.jdt.internal.corext.util.History.save(History.java:183)
+	at org.eclipse.jdt.internal.corext.util.OpenTypeHistory.doShutdown(OpenTypeHistory.java:381)
+	at org.eclipse.jdt.internal.corext.util.OpenTypeHistory.shutdown(OpenTypeHistory.java:194)
+	at org.eclipse.jdt.internal.ui.JavaPlugin.stop(JavaPlugin.java:548)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$3.run(BundleContextImpl.java:896)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$3.run(BundleContextImpl.java:1)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:571)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.stop(BundleContextImpl.java:888)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.stopWorker0(EquinoxBundle.java:1080)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.stopWorker(EquinoxBundle.java:399)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:699)
+	at org.eclipse.osgi.container.Module.stop(Module.java:557)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.decStartLevel(ModuleContainer.java:2154)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:2023)
+	at org.eclipse.osgi.container.SystemModule.stopWorker(SystemModule.java:281)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule.stopWorker(EquinoxBundle.java:225)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:699)
+	at org.eclipse.osgi.container.Module.stop(Module.java:557)
+	at org.eclipse.osgi.container.SystemModule.stop(SystemModule.java:212)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule$1.run(EquinoxBundle.java:244)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+!ENTRY org.eclipse.core.resources 2 10035 2025-07-01 11:32:23.874
+!MESSAGE The workspace will exit with unsaved changes in this session.
+!SESSION 2025-07-01 14:58:16.671 -----------------------------------------------
+eclipse.buildId=4.35.0.20250306-0811
+java.version=21.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
+Framework arguments:  -product org.eclipse.epp.package.modeling.product /home/leon/talesmith
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.modeling.product /home/leon/talesmith -data /home/leon/talesmith
+
+!ENTRY org.eclipse.ui.ide 4 0 2025-07-01 15:00:01.769
+!MESSAGE Could not import project located at /home/leon/talesmith
+!STACK 0
+org.eclipse.ui.internal.wizards.datatransfer.CouldNotImportProjectException: Could not import project located at /home/leon/talesmith
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.toExistingOrNewProject(SmartImportJob.java:555)
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.run(SmartImportJob.java:246)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: org.eclipse.core.internal.resources.ResourceException: Invalid project description for project 'talesmith' at 'file:/home/leon/talesmith' 
+	at org.eclipse.core.internal.resources.Project.checkDescription(Project.java:211)
+	at org.eclipse.core.internal.resources.Project.assertCreateRequirements(Project.java:95)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:305)
+	at org.eclipse.core.internal.resources.Project.create(Project.java:291)
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.createOrImportProject(SmartImportJob.java:594)
+	at org.eclipse.ui.internal.wizards.datatransfer.SmartImportJob.toExistingOrNewProject(SmartImportJob.java:542)
+	... 2 more
+!SESSION 2025-07-01 15:10:33.126 -----------------------------------------------
+eclipse.buildId=4.35.0.20250306-0811
+java.version=21.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
+Framework arguments:  -product org.eclipse.epp.package.modeling.product /home/leon/talesmith
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.modeling.product /home/leon/talesmith
+
+!ENTRY org.eclipse.ui.ide 4 4 2025-07-01 15:11:22.420
+!MESSAGE Problems saving workspace
+
+!ENTRY org.eclipse.ui.ide 2 1 2025-07-01 15:11:22.421
+!MESSAGE Problems occurred while trying to save the state of the workbench.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2025-07-01 15:11:22.421
+!MESSAGE The project description file (.project) for 'TaleSmith' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2025-07-01 15:11:22.421
+!MESSAGE The project description file (.project) for 'Test' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SESSION 2025-07-01 15:11:38.433 -----------------------------------------------
+eclipse.buildId=4.35.0.20250306-0811
+java.version=21.0.6
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
+Framework arguments:  -product org.eclipse.epp.package.modeling.product /home/leon/talesmith
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.modeling.product /home/leon/talesmith
+
+!ENTRY org.eclipse.core.resources 4 567 2025-07-01 15:11:47.298
+!MESSAGE Workspace restored, but some problems occurred.
+!SUBENTRY 1 org.eclipse.core.resources 4 567 2025-07-01 15:11:47.298
+!MESSAGE Could not read metadata for 'TaleSmith'.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException(/TaleSmith)[567]: java.lang.Exception: The project description file (.project) for 'TaleSmith' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.read(FileSystemResourceManager.java:970)
+	at org.eclipse.core.internal.resources.SaveManager.restoreMetaInfo(SaveManager.java:954)
+	at org.eclipse.core.internal.resources.SaveManager.restoreMetaInfo(SaveManager.java:934)
+	at org.eclipse.core.internal.resources.SaveManager.restore(SaveManager.java:790)
+	at org.eclipse.core.internal.resources.SaveManager.startup(SaveManager.java:1616)
+	at org.eclipse.core.internal.resources.Workspace.startup(Workspace.java:2624)
+	at org.eclipse.core.internal.resources.Workspace.open(Workspace.java:2325)
+	at org.eclipse.core.resources.ResourcesPlugin$WorkspaceInitCustomizer.addingService(ResourcesPlugin.java:591)
+	at org.eclipse.core.resources.ResourcesPlugin$WorkspaceInitCustomizer.addingService(ResourcesPlugin.java:1)
+	at org.osgi.util.tracker.ServiceTracker$Tracked.customizerAdding(ServiceTracker.java:947)
+	at org.osgi.util.tracker.ServiceTracker$Tracked.customizerAdding(ServiceTracker.java:1)
+	at org.osgi.util.tracker.AbstractTracked.trackAdding(AbstractTracked.java:257)
+	at org.osgi.util.tracker.AbstractTracked.trackInitial(AbstractTracked.java:184)
+	at org.osgi.util.tracker.ServiceTracker.open(ServiceTracker.java:324)
+	at org.osgi.util.tracker.ServiceTracker.open(ServiceTracker.java:267)
+	at org.eclipse.core.resources.ResourcesPlugin.start(ResourcesPlugin.java:565)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$2.run(BundleContextImpl.java:826)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$2.run(BundleContextImpl.java:1)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:571)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.startActivator(BundleContextImpl.java:818)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.start(BundleContextImpl.java:768)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.startWorker0(EquinoxBundle.java:1066)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.startWorker(EquinoxBundle.java:394)
+	at org.eclipse.osgi.container.Module.doStart(Module.java:643)
+	at org.eclipse.osgi.container.Module.start(Module.java:500)
+	at org.eclipse.osgi.framework.util.SecureAction.start(SecureAction.java:528)
+	at org.eclipse.osgi.internal.hooks.EclipseLazyStarter.postFindLocalClass(EclipseLazyStarter.java:122)
+	at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.findLocalClass(ClasspathManager.java:622)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.findLocalClass(ModuleClassLoader.java:353)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findLocalClass(BundleLoader.java:417)
+	at org.eclipse.osgi.internal.loader.sources.SingleSourcePackage.loadClass(SingleSourcePackage.java:41)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass0(BundleLoader.java:521)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:438)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:195)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:179)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:208)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:149)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:115)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:467)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:298)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:670)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:607)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1492)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1465)
+!SUBENTRY 2 org.eclipse.core.resources 4 567 2025-07-01 15:11:47.303
+!MESSAGE The project description file (.project) for 'TaleSmith' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+!STACK 0
+java.lang.Exception: The project description file (.project) for 'TaleSmith' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.read(FileSystemResourceManager.java:970)
+	at org.eclipse.core.internal.resources.SaveManager.restoreMetaInfo(SaveManager.java:954)
+	at org.eclipse.core.internal.resources.SaveManager.restoreMetaInfo(SaveManager.java:934)
+	at org.eclipse.core.internal.resources.SaveManager.restore(SaveManager.java:790)
+	at org.eclipse.core.internal.resources.SaveManager.startup(SaveManager.java:1616)
+	at org.eclipse.core.internal.resources.Workspace.startup(Workspace.java:2624)
+	at org.eclipse.core.internal.resources.Workspace.open(Workspace.java:2325)
+	at org.eclipse.core.resources.ResourcesPlugin$WorkspaceInitCustomizer.addingService(ResourcesPlugin.java:591)
+	at org.eclipse.core.resources.ResourcesPlugin$WorkspaceInitCustomizer.addingService(ResourcesPlugin.java:1)
+	at org.osgi.util.tracker.ServiceTracker$Tracked.customizerAdding(ServiceTracker.java:947)
+	at org.osgi.util.tracker.ServiceTracker$Tracked.customizerAdding(ServiceTracker.java:1)
+	at org.osgi.util.tracker.AbstractTracked.trackAdding(AbstractTracked.java:257)
+	at org.osgi.util.tracker.AbstractTracked.trackInitial(AbstractTracked.java:184)
+	at org.osgi.util.tracker.ServiceTracker.open(ServiceTracker.java:324)
+	at org.osgi.util.tracker.ServiceTracker.open(ServiceTracker.java:267)
+	at org.eclipse.core.resources.ResourcesPlugin.start(ResourcesPlugin.java:565)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$2.run(BundleContextImpl.java:826)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$2.run(BundleContextImpl.java:1)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:571)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.startActivator(BundleContextImpl.java:818)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.start(BundleContextImpl.java:768)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.startWorker0(EquinoxBundle.java:1066)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.startWorker(EquinoxBundle.java:394)
+	at org.eclipse.osgi.container.Module.doStart(Module.java:643)
+	at org.eclipse.osgi.container.Module.start(Module.java:500)
+	at org.eclipse.osgi.framework.util.SecureAction.start(SecureAction.java:528)
+	at org.eclipse.osgi.internal.hooks.EclipseLazyStarter.postFindLocalClass(EclipseLazyStarter.java:122)
+	at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.findLocalClass(ClasspathManager.java:622)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.findLocalClass(ModuleClassLoader.java:353)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findLocalClass(BundleLoader.java:417)
+	at org.eclipse.osgi.internal.loader.sources.SingleSourcePackage.loadClass(SingleSourcePackage.java:41)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass0(BundleLoader.java:521)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:438)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:195)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:179)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:208)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:149)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:115)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:467)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:298)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:670)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:607)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1492)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1465)
+!SUBENTRY 1 org.eclipse.core.resources 4 567 2025-07-01 15:11:47.303
+!MESSAGE Could not read metadata for 'Test'.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException(/Test)[567]: java.lang.Exception: The project description file (.project) for 'Test' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.read(FileSystemResourceManager.java:970)
+	at org.eclipse.core.internal.resources.SaveManager.restoreMetaInfo(SaveManager.java:954)
+	at org.eclipse.core.internal.resources.SaveManager.restoreMetaInfo(SaveManager.java:934)
+	at org.eclipse.core.internal.resources.SaveManager.restore(SaveManager.java:790)
+	at org.eclipse.core.internal.resources.SaveManager.startup(SaveManager.java:1616)
+	at org.eclipse.core.internal.resources.Workspace.startup(Workspace.java:2624)
+	at org.eclipse.core.internal.resources.Workspace.open(Workspace.java:2325)
+	at org.eclipse.core.resources.ResourcesPlugin$WorkspaceInitCustomizer.addingService(ResourcesPlugin.java:591)
+	at org.eclipse.core.resources.ResourcesPlugin$WorkspaceInitCustomizer.addingService(ResourcesPlugin.java:1)
+	at org.osgi.util.tracker.ServiceTracker$Tracked.customizerAdding(ServiceTracker.java:947)
+	at org.osgi.util.tracker.ServiceTracker$Tracked.customizerAdding(ServiceTracker.java:1)
+	at org.osgi.util.tracker.AbstractTracked.trackAdding(AbstractTracked.java:257)
+	at org.osgi.util.tracker.AbstractTracked.trackInitial(AbstractTracked.java:184)
+	at org.osgi.util.tracker.ServiceTracker.open(ServiceTracker.java:324)
+	at org.osgi.util.tracker.ServiceTracker.open(ServiceTracker.java:267)
+	at org.eclipse.core.resources.ResourcesPlugin.start(ResourcesPlugin.java:565)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$2.run(BundleContextImpl.java:826)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$2.run(BundleContextImpl.java:1)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:571)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.startActivator(BundleContextImpl.java:818)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.start(BundleContextImpl.java:768)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.startWorker0(EquinoxBundle.java:1066)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.startWorker(EquinoxBundle.java:394)
+	at org.eclipse.osgi.container.Module.doStart(Module.java:643)
+	at org.eclipse.osgi.container.Module.start(Module.java:500)
+	at org.eclipse.osgi.framework.util.SecureAction.start(SecureAction.java:528)
+	at org.eclipse.osgi.internal.hooks.EclipseLazyStarter.postFindLocalClass(EclipseLazyStarter.java:122)
+	at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.findLocalClass(ClasspathManager.java:622)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.findLocalClass(ModuleClassLoader.java:353)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findLocalClass(BundleLoader.java:417)
+	at org.eclipse.osgi.internal.loader.sources.SingleSourcePackage.loadClass(SingleSourcePackage.java:41)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass0(BundleLoader.java:521)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:438)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:195)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:179)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:208)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:149)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:115)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:467)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:298)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:670)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:607)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1492)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1465)
+!SUBENTRY 2 org.eclipse.core.resources 4 567 2025-07-01 15:11:47.304
+!MESSAGE The project description file (.project) for 'Test' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+!STACK 0
+java.lang.Exception: The project description file (.project) for 'Test' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.read(FileSystemResourceManager.java:970)
+	at org.eclipse.core.internal.resources.SaveManager.restoreMetaInfo(SaveManager.java:954)
+	at org.eclipse.core.internal.resources.SaveManager.restoreMetaInfo(SaveManager.java:934)
+	at org.eclipse.core.internal.resources.SaveManager.restore(SaveManager.java:790)
+	at org.eclipse.core.internal.resources.SaveManager.startup(SaveManager.java:1616)
+	at org.eclipse.core.internal.resources.Workspace.startup(Workspace.java:2624)
+	at org.eclipse.core.internal.resources.Workspace.open(Workspace.java:2325)
+	at org.eclipse.core.resources.ResourcesPlugin$WorkspaceInitCustomizer.addingService(ResourcesPlugin.java:591)
+	at org.eclipse.core.resources.ResourcesPlugin$WorkspaceInitCustomizer.addingService(ResourcesPlugin.java:1)
+	at org.osgi.util.tracker.ServiceTracker$Tracked.customizerAdding(ServiceTracker.java:947)
+	at org.osgi.util.tracker.ServiceTracker$Tracked.customizerAdding(ServiceTracker.java:1)
+	at org.osgi.util.tracker.AbstractTracked.trackAdding(AbstractTracked.java:257)
+	at org.osgi.util.tracker.AbstractTracked.trackInitial(AbstractTracked.java:184)
+	at org.osgi.util.tracker.ServiceTracker.open(ServiceTracker.java:324)
+	at org.osgi.util.tracker.ServiceTracker.open(ServiceTracker.java:267)
+	at org.eclipse.core.resources.ResourcesPlugin.start(ResourcesPlugin.java:565)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$2.run(BundleContextImpl.java:826)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$2.run(BundleContextImpl.java:1)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:571)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.startActivator(BundleContextImpl.java:818)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.start(BundleContextImpl.java:768)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.startWorker0(EquinoxBundle.java:1066)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.startWorker(EquinoxBundle.java:394)
+	at org.eclipse.osgi.container.Module.doStart(Module.java:643)
+	at org.eclipse.osgi.container.Module.start(Module.java:500)
+	at org.eclipse.osgi.framework.util.SecureAction.start(SecureAction.java:528)
+	at org.eclipse.osgi.internal.hooks.EclipseLazyStarter.postFindLocalClass(EclipseLazyStarter.java:122)
+	at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.findLocalClass(ClasspathManager.java:622)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.findLocalClass(ModuleClassLoader.java:353)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findLocalClass(BundleLoader.java:417)
+	at org.eclipse.osgi.internal.loader.sources.SingleSourcePackage.loadClass(SingleSourcePackage.java:41)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass0(BundleLoader.java:521)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:438)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:195)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:526)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:179)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:208)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:149)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:115)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:467)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:298)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:670)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:607)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1492)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1465)
+
+!ENTRY org.eclipse.emf.codegen.ecore 2 0 2025-07-01 15:15:57.202
+!MESSAGE Resource '/TaleSmith.edit' does not exist.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException(/TaleSmith.edit)[368]: java.lang.Exception: Resource '/TaleSmith.edit' does not exist.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:364)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:238)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:183)
+	at org.eclipse.core.internal.resources.Project.getDescription(Project.java:430)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter$EclipseHelper.ensureProjectExists(GenBaseGeneratorAdapter.java:480)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.ensureProjectExists(GenBaseGeneratorAdapter.java:346)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenModelGeneratorAdapter.generateEditor(GenModelGeneratorAdapter.java:501)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.doGenerate(GenBaseGeneratorAdapter.java:223)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generate(AbstractGeneratorAdapter.java:318)
+	at org.eclipse.emf.codegen.ecore.generator.Generator.generate(Generator.java:788)
+	at org.eclipse.emf.codegen.ecore.genmodel.presentation.GeneratorUIUtil$GeneratorOperation.execute(GeneratorUIUtil.java:178)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.lambda$0(WorkspaceModifyOperation.java:112)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2482)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:131)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2025-07-01 15:15:57.203
+!MESSAGE Resource '/TaleSmith.edit' does not exist.
+!STACK 0
+java.lang.Exception: Resource '/TaleSmith.edit' does not exist.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:364)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:238)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:183)
+	at org.eclipse.core.internal.resources.Project.getDescription(Project.java:430)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter$EclipseHelper.ensureProjectExists(GenBaseGeneratorAdapter.java:480)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.ensureProjectExists(GenBaseGeneratorAdapter.java:346)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenModelGeneratorAdapter.generateEditor(GenModelGeneratorAdapter.java:501)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.doGenerate(GenBaseGeneratorAdapter.java:223)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generate(AbstractGeneratorAdapter.java:318)
+	at org.eclipse.emf.codegen.ecore.generator.Generator.generate(Generator.java:788)
+	at org.eclipse.emf.codegen.ecore.genmodel.presentation.GeneratorUIUtil$GeneratorOperation.execute(GeneratorUIUtil.java:178)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.lambda$0(WorkspaceModifyOperation.java:112)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2482)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:131)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.emf.codegen.ecore 2 0 2025-07-01 15:15:57.223
+!MESSAGE org.eclipse.emf.ecore.resource.Resource$IOWrappedException: Resource '/TaleSmith.editor' does not exist.
+!STACK 0
+org.eclipse.emf.common.util.WrappedException: org.eclipse.emf.ecore.resource.Resource$IOWrappedException: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generateJava(AbstractGeneratorAdapter.java:2179)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenModelGeneratorAdapter.generateEditorPluginClass(GenModelGeneratorAdapter.java:523)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenModelGeneratorAdapter.generateEditor(GenModelGeneratorAdapter.java:504)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.doGenerate(GenBaseGeneratorAdapter.java:223)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generate(AbstractGeneratorAdapter.java:318)
+	at org.eclipse.emf.codegen.ecore.generator.Generator.generate(Generator.java:788)
+	at org.eclipse.emf.codegen.ecore.genmodel.presentation.GeneratorUIUtil$GeneratorOperation.execute(GeneratorUIUtil.java:178)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.lambda$0(WorkspaceModifyOperation.java:112)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2482)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:131)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: org.eclipse.emf.ecore.resource.Resource$IOWrappedException: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:82)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:75)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:75)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.flush(PlatformResourceURIHandlerImpl.java:109)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.close(PlatformResourceURIHandlerImpl.java:91)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$WorkbenchHelper$1.close(PlatformResourceURIHandlerImpl.java:177)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generateJava(AbstractGeneratorAdapter.java:2174)
+	... 11 more
+Caused by: org.eclipse.core.internal.resources.ResourceException: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:364)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:238)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:183)
+	at org.eclipse.core.internal.resources.Folder.assertCreateRequirements(Folder.java:43)
+	at org.eclipse.core.internal.resources.Folder.create(Folder.java:101)
+	at org.eclipse.core.internal.resources.Folder.create(Folder.java:129)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:78)
+	... 17 more
+Caused by: java.lang.Exception: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	... 24 more
+
+!ENTRY org.eclipse.emf.codegen.ecore 2 0 2025-07-01 15:15:57.229
+!MESSAGE Resource '/TaleSmith.edit' does not exist.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException(/TaleSmith.edit)[368]: java.lang.Exception: Resource '/TaleSmith.edit' does not exist.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:364)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:238)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:183)
+	at org.eclipse.core.internal.resources.Project.getDescription(Project.java:430)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter$EclipseHelper.ensureProjectExists(GenBaseGeneratorAdapter.java:480)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.ensureProjectExists(GenBaseGeneratorAdapter.java:346)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenPackageGeneratorAdapter.generateEditor(GenPackageGeneratorAdapter.java:941)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.doGenerate(GenBaseGeneratorAdapter.java:223)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generate(AbstractGeneratorAdapter.java:318)
+	at org.eclipse.emf.codegen.ecore.generator.Generator.generate(Generator.java:788)
+	at org.eclipse.emf.codegen.ecore.genmodel.presentation.GeneratorUIUtil$GeneratorOperation.execute(GeneratorUIUtil.java:178)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.lambda$0(WorkspaceModifyOperation.java:112)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2482)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:131)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2025-07-01 15:15:57.229
+!MESSAGE Resource '/TaleSmith.edit' does not exist.
+!STACK 0
+java.lang.Exception: Resource '/TaleSmith.edit' does not exist.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:364)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:238)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:183)
+	at org.eclipse.core.internal.resources.Project.getDescription(Project.java:430)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter$EclipseHelper.ensureProjectExists(GenBaseGeneratorAdapter.java:480)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.ensureProjectExists(GenBaseGeneratorAdapter.java:346)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenPackageGeneratorAdapter.generateEditor(GenPackageGeneratorAdapter.java:941)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.doGenerate(GenBaseGeneratorAdapter.java:223)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generate(AbstractGeneratorAdapter.java:318)
+	at org.eclipse.emf.codegen.ecore.generator.Generator.generate(Generator.java:788)
+	at org.eclipse.emf.codegen.ecore.genmodel.presentation.GeneratorUIUtil$GeneratorOperation.execute(GeneratorUIUtil.java:178)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.lambda$0(WorkspaceModifyOperation.java:112)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2482)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:131)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.emf.codegen.ecore 2 0 2025-07-01 15:15:57.366
+!MESSAGE org.eclipse.emf.ecore.resource.Resource$IOWrappedException: Resource '/TaleSmith.editor' does not exist.
+!STACK 0
+org.eclipse.emf.common.util.WrappedException: org.eclipse.emf.ecore.resource.Resource$IOWrappedException: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generateJava(AbstractGeneratorAdapter.java:2179)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenPackageGeneratorAdapter.generateEditor(GenPackageGeneratorAdapter.java:960)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenPackageGeneratorAdapter.generateEditor(GenPackageGeneratorAdapter.java:944)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.doGenerate(GenBaseGeneratorAdapter.java:223)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generate(AbstractGeneratorAdapter.java:318)
+	at org.eclipse.emf.codegen.ecore.generator.Generator.generate(Generator.java:788)
+	at org.eclipse.emf.codegen.ecore.genmodel.presentation.GeneratorUIUtil$GeneratorOperation.execute(GeneratorUIUtil.java:178)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.lambda$0(WorkspaceModifyOperation.java:112)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2482)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:131)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: org.eclipse.emf.ecore.resource.Resource$IOWrappedException: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:82)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:75)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:75)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.flush(PlatformResourceURIHandlerImpl.java:109)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.close(PlatformResourceURIHandlerImpl.java:91)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$WorkbenchHelper$1.close(PlatformResourceURIHandlerImpl.java:177)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generateJava(AbstractGeneratorAdapter.java:2174)
+	... 11 more
+Caused by: org.eclipse.core.internal.resources.ResourceException: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:364)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:238)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:183)
+	at org.eclipse.core.internal.resources.Folder.assertCreateRequirements(Folder.java:43)
+	at org.eclipse.core.internal.resources.Folder.create(Folder.java:101)
+	at org.eclipse.core.internal.resources.Folder.create(Folder.java:129)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:78)
+	... 17 more
+Caused by: java.lang.Exception: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	... 24 more
+
+!ENTRY org.eclipse.emf.codegen.ecore 2 0 2025-07-01 15:16:05.728
+!MESSAGE Resource '/TaleSmith.edit' does not exist.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException(/TaleSmith.edit)[368]: java.lang.Exception: Resource '/TaleSmith.edit' does not exist.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:364)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:238)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:183)
+	at org.eclipse.core.internal.resources.Project.getDescription(Project.java:430)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter$EclipseHelper.ensureProjectExists(GenBaseGeneratorAdapter.java:480)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.ensureProjectExists(GenBaseGeneratorAdapter.java:346)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenModelGeneratorAdapter.generateEditor(GenModelGeneratorAdapter.java:501)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.doGenerate(GenBaseGeneratorAdapter.java:223)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generate(AbstractGeneratorAdapter.java:318)
+	at org.eclipse.emf.codegen.ecore.generator.Generator.generate(Generator.java:788)
+	at org.eclipse.emf.codegen.ecore.genmodel.presentation.GeneratorUIUtil$GeneratorOperation.execute(GeneratorUIUtil.java:178)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.lambda$0(WorkspaceModifyOperation.java:112)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2482)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:131)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2025-07-01 15:16:05.728
+!MESSAGE Resource '/TaleSmith.edit' does not exist.
+!STACK 0
+java.lang.Exception: Resource '/TaleSmith.edit' does not exist.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:364)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:238)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:183)
+	at org.eclipse.core.internal.resources.Project.getDescription(Project.java:430)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter$EclipseHelper.ensureProjectExists(GenBaseGeneratorAdapter.java:480)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.ensureProjectExists(GenBaseGeneratorAdapter.java:346)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenModelGeneratorAdapter.generateEditor(GenModelGeneratorAdapter.java:501)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.doGenerate(GenBaseGeneratorAdapter.java:223)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generate(AbstractGeneratorAdapter.java:318)
+	at org.eclipse.emf.codegen.ecore.generator.Generator.generate(Generator.java:788)
+	at org.eclipse.emf.codegen.ecore.genmodel.presentation.GeneratorUIUtil$GeneratorOperation.execute(GeneratorUIUtil.java:178)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.lambda$0(WorkspaceModifyOperation.java:112)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2482)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:131)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.emf.codegen.ecore 2 0 2025-07-01 15:16:05.738
+!MESSAGE org.eclipse.emf.ecore.resource.Resource$IOWrappedException: Resource '/TaleSmith.editor' does not exist.
+!STACK 0
+org.eclipse.emf.common.util.WrappedException: org.eclipse.emf.ecore.resource.Resource$IOWrappedException: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generateJava(AbstractGeneratorAdapter.java:2179)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenModelGeneratorAdapter.generateEditorPluginClass(GenModelGeneratorAdapter.java:523)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenModelGeneratorAdapter.generateEditor(GenModelGeneratorAdapter.java:504)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.doGenerate(GenBaseGeneratorAdapter.java:223)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generate(AbstractGeneratorAdapter.java:318)
+	at org.eclipse.emf.codegen.ecore.generator.Generator.generate(Generator.java:788)
+	at org.eclipse.emf.codegen.ecore.genmodel.presentation.GeneratorUIUtil$GeneratorOperation.execute(GeneratorUIUtil.java:178)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.lambda$0(WorkspaceModifyOperation.java:112)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2482)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:131)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: org.eclipse.emf.ecore.resource.Resource$IOWrappedException: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:82)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:75)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:75)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.flush(PlatformResourceURIHandlerImpl.java:109)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.close(PlatformResourceURIHandlerImpl.java:91)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$WorkbenchHelper$1.close(PlatformResourceURIHandlerImpl.java:177)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generateJava(AbstractGeneratorAdapter.java:2174)
+	... 11 more
+Caused by: org.eclipse.core.internal.resources.ResourceException: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:364)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:238)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:183)
+	at org.eclipse.core.internal.resources.Folder.assertCreateRequirements(Folder.java:43)
+	at org.eclipse.core.internal.resources.Folder.create(Folder.java:101)
+	at org.eclipse.core.internal.resources.Folder.create(Folder.java:129)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:78)
+	... 17 more
+Caused by: java.lang.Exception: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	... 24 more
+
+!ENTRY org.eclipse.emf.codegen.ecore 2 0 2025-07-01 15:16:05.739
+!MESSAGE Resource '/TaleSmith.edit' does not exist.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException(/TaleSmith.edit)[368]: java.lang.Exception: Resource '/TaleSmith.edit' does not exist.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:364)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:238)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:183)
+	at org.eclipse.core.internal.resources.Project.getDescription(Project.java:430)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter$EclipseHelper.ensureProjectExists(GenBaseGeneratorAdapter.java:480)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.ensureProjectExists(GenBaseGeneratorAdapter.java:346)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenPackageGeneratorAdapter.generateEditor(GenPackageGeneratorAdapter.java:941)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.doGenerate(GenBaseGeneratorAdapter.java:223)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generate(AbstractGeneratorAdapter.java:318)
+	at org.eclipse.emf.codegen.ecore.generator.Generator.generate(Generator.java:788)
+	at org.eclipse.emf.codegen.ecore.genmodel.presentation.GeneratorUIUtil$GeneratorOperation.execute(GeneratorUIUtil.java:178)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.lambda$0(WorkspaceModifyOperation.java:112)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2482)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:131)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2025-07-01 15:16:05.739
+!MESSAGE Resource '/TaleSmith.edit' does not exist.
+!STACK 0
+java.lang.Exception: Resource '/TaleSmith.edit' does not exist.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:364)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:238)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:183)
+	at org.eclipse.core.internal.resources.Project.getDescription(Project.java:430)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter$EclipseHelper.ensureProjectExists(GenBaseGeneratorAdapter.java:480)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.ensureProjectExists(GenBaseGeneratorAdapter.java:346)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenPackageGeneratorAdapter.generateEditor(GenPackageGeneratorAdapter.java:941)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.doGenerate(GenBaseGeneratorAdapter.java:223)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generate(AbstractGeneratorAdapter.java:318)
+	at org.eclipse.emf.codegen.ecore.generator.Generator.generate(Generator.java:788)
+	at org.eclipse.emf.codegen.ecore.genmodel.presentation.GeneratorUIUtil$GeneratorOperation.execute(GeneratorUIUtil.java:178)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.lambda$0(WorkspaceModifyOperation.java:112)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2482)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:131)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+
+!ENTRY org.eclipse.emf.codegen.ecore 2 0 2025-07-01 15:16:05.820
+!MESSAGE org.eclipse.emf.ecore.resource.Resource$IOWrappedException: Resource '/TaleSmith.editor' does not exist.
+!STACK 0
+org.eclipse.emf.common.util.WrappedException: org.eclipse.emf.ecore.resource.Resource$IOWrappedException: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generateJava(AbstractGeneratorAdapter.java:2179)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenPackageGeneratorAdapter.generateEditor(GenPackageGeneratorAdapter.java:960)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenPackageGeneratorAdapter.generateEditor(GenPackageGeneratorAdapter.java:944)
+	at org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter.doGenerate(GenBaseGeneratorAdapter.java:223)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generate(AbstractGeneratorAdapter.java:318)
+	at org.eclipse.emf.codegen.ecore.generator.Generator.generate(Generator.java:788)
+	at org.eclipse.emf.codegen.ecore.genmodel.presentation.GeneratorUIUtil$GeneratorOperation.execute(GeneratorUIUtil.java:178)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.lambda$0(WorkspaceModifyOperation.java:112)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2457)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2482)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run(WorkspaceModifyOperation.java:131)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:124)
+Caused by: org.eclipse.emf.ecore.resource.Resource$IOWrappedException: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:82)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:75)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:75)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.flush(PlatformResourceURIHandlerImpl.java:109)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.close(PlatformResourceURIHandlerImpl.java:91)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$WorkbenchHelper$1.close(PlatformResourceURIHandlerImpl.java:177)
+	at org.eclipse.emf.codegen.ecore.generator.AbstractGeneratorAdapter.generateJava(AbstractGeneratorAdapter.java:2174)
+	... 11 more
+Caused by: org.eclipse.core.internal.resources.ResourceException: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:364)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:238)
+	at org.eclipse.core.internal.resources.Project.checkAccessible(Project.java:183)
+	at org.eclipse.core.internal.resources.Folder.assertCreateRequirements(Folder.java:43)
+	at org.eclipse.core.internal.resources.Folder.create(Folder.java:101)
+	at org.eclipse.core.internal.resources.Folder.create(Folder.java:129)
+	at org.eclipse.emf.ecore.resource.impl.PlatformResourceURIHandlerImpl$PlatformResourceOutputStream.createContainer(PlatformResourceURIHandlerImpl.java:78)
+	... 17 more
+Caused by: java.lang.Exception: Resource '/TaleSmith.editor' does not exist.
+	at org.eclipse.core.internal.resources.ResourceException.provideStackTrace(ResourceException.java:42)
+	at org.eclipse.core.internal.resources.ResourceException.<init>(ResourceException.java:38)
+	... 24 more
+
+!ENTRY org.eclipse.ui 4 0 2025-07-01 15:39:15.148
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.swt.SWTException: Widget is disposed
+	at org.eclipse.swt.SWT.error(SWT.java:4932)
+	at org.eclipse.swt.SWT.error(SWT.java:4847)
+	at org.eclipse.swt.SWT.error(SWT.java:4818)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:598)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:513)
+	at org.eclipse.swt.widgets.Tree.getItems(Tree.java:1917)
+	at org.eclipse.jface.viewers.TreeViewer.getChildren(TreeViewer.java:165)
+	at org.eclipse.jface.viewers.AbstractTreeViewer.internalCollectExpandedItems(AbstractTreeViewer.java:1695)
+	at org.eclipse.jface.viewers.AbstractTreeViewer.getExpandedElements(AbstractTreeViewer.java:1300)
+	at org.eclipse.pde.internal.ui.editor.plugin.ExtensionsSection.refresh(ExtensionsSection.java:805)
+	at org.eclipse.ui.forms.ManagedForm.doRefresh(ManagedForm.java:181)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:132)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:5047)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:4527)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1151)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1042)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:153)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:668)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:576)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:173)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:178)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:208)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:149)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:115)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:467)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:298)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:670)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:607)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1492)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1465)
