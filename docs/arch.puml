@@ -1,0 +1,103 @@
+@startuml class diagram
+'======================
+'   Domänenklassen
+'======================
+class Game {
+    -name: String
+    -roomTemplates: List<RoomTemplate>
+    -enemyTemplates: List<EnemyTemplate>
+    -player: Player
+    -currentRoom: Room
+    
+    +Game(name, roomTemplates, enemyTemplates): 
+    +start(): void
+    +gameLoop(): void
+    +generateNewRoom(): void
+}
+
+class Room {
+    -name: String
+    -enemies: List<Enemy>
+    -cleared: boolean
+
+    +Room(name, enemies)
+}
+
+abstract class Creature {
+    -name: String
+    -hp: int
+    -ap: int
+    -agility: int
+
+    +Creature(name, hp, ap, agility)
+}
+
+class Player {
+
+    +Player(name, hp, ap, agility)
+}
+
+class Enemy {
+
+    +Enemy(name, hp, ap, agility)    
+}
+
+class RoomTemplate {
+    -name: String
+    -possibleEnemies: List<EnemyTemplate>
+
+    +RoomTemplate(name, possibleEnemies)
+}
+
+class EnemyTemplate {
+    -name: String
+    -hp: int
+    -ap: int
+    -agility: int
+
+    +EnemyTemplate(name, hp, ap, agility)
+}
+
+'======================
+'   Builder-Klassen
+'======================
+class RoomBuilder {
+    -template: RoomTemplate
+    -enemies: List<Enemy>
+
+    +RoomBuilder(template, enemies)
+    +withTemplate(RoomTemplate): RoomBuilder
+    +addEnemy(Enemy): RoomBuilder
+    +build(): Room
+}
+
+class EnemyBuilder {
+    -template: EnemyTemplate
+    
+    +EnemyBuilder(template)
+    +withTemplate(EnemyTemplate): EnemyBuilder
+    +withName(String): EnemyBuilder
+    +withHp(int): EnemyBuilder
+    +withAp(int): EnemyBuilder
+    +withAgility(int): EnemyBuilder
+    +build(): Enemy
+}
+
+'======================
+'   Beziehungen
+'======================
+Game *-- Room
+Game *-- Player
+Game *-- RoomTemplate
+Game *-- EnemyTemplate
+Game ..> RoomBuilder     : uses
+Game ..> EnemyBuilder    : uses
+
+Room o-- Enemy
+
+Player --|> Creature
+Enemy  --|> Creature
+
+RoomBuilder o-- Room
+EnemyBuilder o-- Enemy
+@enduml
