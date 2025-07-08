@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/TaleSmith/src-gen" creationIcons="false" editDirectory="/TaleSmith.edit/src-gen"
+    editorDirectory="/TaleSmith.editor/src-gen" modelPluginID="TaleSmith" modelName="TaleSmith"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" codeFormatting="true"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>taleSmith.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="TaleSmith" disposableProviderFactory="true" ecorePackage="taleSmith.ecore#/">
+    <genClasses ecoreClass="taleSmith.ecore#//Game">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taleSmith.ecore#//Game/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taleSmith.ecore#//Game/rooms"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference taleSmith.ecore#//Game/player"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taleSmith.ecore#//Game/enemies"/>
+    </genClasses>
+    <genClasses ecoreClass="taleSmith.ecore#//Room">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taleSmith.ecore#//Room/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference taleSmith.ecore#//Room/possibleEnemies"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="taleSmith.ecore#//Creature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taleSmith.ecore#//Creature/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taleSmith.ecore#//Creature/hp"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taleSmith.ecore#//Creature/ap"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taleSmith.ecore#//Creature/agility"/>
+    </genClasses>
+    <genClasses ecoreClass="taleSmith.ecore#//Player"/>
+    <genClasses ecoreClass="taleSmith.ecore#//Enemy"/>
+  </genPackages>
+</genmodel:GenModel>
