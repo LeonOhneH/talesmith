@@ -1,7 +1,0 @@
-package TaleSmith.mycommands
-
-import org.eclipse.core.commands.AbstractHandler
-
-class CommandHandler extends AbstractHandler {
-	
-}
