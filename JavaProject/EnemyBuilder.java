@@ -11,6 +11,8 @@ class EnemyBuilder {
         this.agility = template.getAgility();
     }
 
+    public EnemyBuilder () {}
+
     public EnemyBuilder withTemplate(EnemyTemplate template) {
         this.name = template.getName();
         this.hp = template.getHp();

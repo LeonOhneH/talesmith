@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 class RoomBuilder {
     private RoomTemplate template;
     private List<Enemy> enemies;
@@ -7,8 +10,14 @@ class RoomBuilder {
         this.enemies = enemies;
     }
 
-    public RoomBuilder withTemplate(RoomTemplate template) {
+    public RoomBuilder() {}
+
+    public RoomBuilder withTemplate(RoomTemplate template, int numberOfEnemies) {
         this.template = template;
+        this.enemies = new ArrayList<>();
+        for (int i = 0; i < numberOfEnemies; i++) {
+            this.enemies.add(new EnemyBuilder().withTemplate(template.getRandomTemplate()).build());
+        }
         return this;
     }
 
