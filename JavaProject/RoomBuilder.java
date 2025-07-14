@@ -16,7 +16,7 @@ class RoomBuilder {
         this.template = template;
         this.enemies = new ArrayList<>();
         for (int i = 0; i < numberOfEnemies; i++) {
-            this.enemies.add(new EnemyBuilder().withTemplate(template.getRandomTemplate()).build());
+            this.enemies.add(new EnemyBuilder().withTemplate(template.getRandomEnemyTemplate()).build());
         }
         return this;
     }

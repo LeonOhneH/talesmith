@@ -27,19 +27,30 @@ class Game {
         gameLoop();
     }
 
-    public void gameLoop() {
+    public int gameLoop() {
         // Placeholder for the main game loop
         System.out.println("Running game loop...");
         while (true) {
-            roomLoop();
-            System.out.println("Advancing to next room ...");
+            int retInt = roomLoop();
+            if (retInt == 0) {
+                System.out.println("Advancing to next room ...");
+            } else {
+                return retInt;
+            }
+
         }
     }
 
-    public void roomLoop() {
+    public int roomLoop() {
         generateNewRoom();
 
         while (!currentRoom.isCleared()) {
+
+            if (player.isDead()) {
+                System.out.println("Player died, game ends");
+                return 1;
+            }
+
             System.out.println(currentRoom);
 
             System.out.println();
@@ -63,6 +74,7 @@ class Game {
         }
 
         System.out.println("The Room has been cleared!");
+        return 0;
     }
 
     public void generateNewRoom() {

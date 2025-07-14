@@ -27,7 +27,7 @@ class RoomTemplate {
         this.possibleEnemies = possibleEnemies;
     }
 
-    public EnemyTemplate getRandomTemplate() {
+    public EnemyTemplate getRandomEnemyTemplate() {
         int size = this.possibleEnemies.size();
         if (size == 0) {
             throw new IllegalStateException("Keine möglichen Gegner vorhanden!");
