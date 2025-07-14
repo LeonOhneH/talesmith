@@ -24,7 +24,7 @@ abstract class Creature {
     }
 
     public void setHp(int hp) {
-        this.hp = hp;
+        this.hp = (hp < 0) ? 10 : hp;
     }
 
     public int getAp() {
@@ -43,6 +43,14 @@ abstract class Creature {
         this.agility = agility;
     }
 
+    public boolean isDead() {
+        return hp <= 0;
+    }
+
+    public boolean isAlive() {
+        return hp > 0;
+    }
+
     @Override
     public String toString() {
         return "Creature{" +
@@ -51,6 +59,12 @@ abstract class Creature {
                 ", ap=" + ap +
                 ", agility=" + agility +
                 '}';
+    }
+
+    public void attack(Creature c) {
+        System.out.println(getName() + " attacks " + c.getName());
+        c.setHp(c.getHp() - getAp());
+        System.out.println("New hp: " + c.getHp());
     }
 
 }

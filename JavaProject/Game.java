@@ -22,6 +22,7 @@ class Game {
 
     public void start() {
         System.out.println("Game started!");
+        setPlayer(new Player("Leon", 100, 10, 10));
 
         gameLoop();
     }
@@ -29,15 +30,39 @@ class Game {
     public void gameLoop() {
         // Placeholder for the main game loop
         System.out.println("Running game loop...");
+        while (true) {
+            roomLoop();
+            System.out.println("Advancing to next room ...");
+        }
+    }
+
+    public void roomLoop() {
         generateNewRoom();
 
         while (!currentRoom.isCleared()) {
             System.out.println(currentRoom);
 
+            System.out.println();
+            System.out.println("What do you want to do? [f]ight");
+
             Scanner s = new Scanner(System.in);
             String input = s.next();
-            System.out.println("input " + input);
+
+
+            switch (input) {
+                case "f":
+                case "F":
+                    System.out.println();
+                    System.out.println("What enemy do you want to fight? [1]st enemy, [2]nd enemy");
+
+                    int inputEnemy = s.nextInt() - 1;
+
+                    currentRoom.fight(player, currentRoom.getEnemies().get(inputEnemy));
+                    break;
+            }
         }
+
+        System.out.println("The Room has been cleared!");
     }
 
     public void generateNewRoom() {

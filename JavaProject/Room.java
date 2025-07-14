@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Scanner;
 
 
 class Room {
@@ -34,6 +35,41 @@ class Room {
 
     public void setCleared(boolean cleared) {
         this.cleared = cleared;
+    }
+
+    public void checkCleared() {
+        boolean cleared = true;
+
+        for (int i = 0; i < this.enemies.size(); i++) {
+            if (this.enemies.get(i).isAlive()) {
+                cleared = false;
+            }
+        }
+
+        this.setCleared(cleared);
+    }
+
+    public void fight(Player player, Enemy currentEnemy) {
+
+
+        while (currentEnemy.isAlive() && player.isAlive()) {
+            if (player.getAgility() > currentEnemy.getAgility()) {
+                player.attack(currentEnemy);
+                if (currentEnemy.isAlive()) currentEnemy.attack(player);
+            } else {
+                currentEnemy.attack(player);
+                if (player.isAlive()) player.attack(currentEnemy);
+            }
+        }
+
+        if (player.isDead()) {
+            System.out.println("Player has been killed! ");
+            return;
+        }
+        if (currentEnemy.isDead()){
+            System.out.println(currentEnemy.getName() + " has been killed!");
+            checkCleared();
+        }
     }
 
     @Override
