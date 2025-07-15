@@ -13,7 +13,7 @@ class Game {
     private Random random;
     private int roomsCleared;
     private int totalEnemiesKilled;
-    private int difficultyLevel; // Schwierigkeitsgrad für endloses Spiel
+    private int difficultyLevel;
 
     public Game() {
         this.scanner = new Scanner(System.in);
@@ -73,8 +73,8 @@ class Game {
             if (result == 0) {
                 roomsCleared++;
 
-                // Alle 5 Räume wird die Schwierigkeit erhöht
-                if (roomsCleared % 5 == 0) {
+                // Alle 2 Räume wird die Schwierigkeit erhöht
+                if (roomsCleared % 2 == 0) {
                     difficultyLevel++;
                     displayDifficultyIncrease();
                 }
@@ -84,7 +84,6 @@ class Game {
             } else {
                 displayGameOver();
 
-                // Frage nach Neustart
                 if (askForRestart()) {
                     resetGame();
                     continue;
@@ -102,7 +101,6 @@ class Game {
         System.out.println("   👹 Mehr und stärkere Gegner erwarten dich!");
         System.out.println("══════════════════════════════════════════════════════════════");
 
-        // Spieler belohnen für Fortschritt
         int bonusHeal = 30 + (difficultyLevel * 10);
         player.heal(bonusHeal);
         System.out.println("💚 Bonus-Heilung: +" + bonusHeal + " HP!");
@@ -128,7 +126,6 @@ class Game {
         this.totalEnemiesKilled = 0;
         this.difficultyLevel = 1;
 
-        // Spieler zurücksetzen (aber Name behalten)
         String playerName = player.getName();
         this.player = new Player(playerName, 100, 50, 40);
 
@@ -254,7 +251,6 @@ class Game {
         System.out.println("   🏛️  Raum #" + (roomsCleared + 1) + " gemeistert!");
         System.out.println("══════════════════════════════════════════════════════════════");
 
-        // Spieler heilen (weniger bei höheren Leveln)
         int healAmount = Math.max(10, 25 - difficultyLevel);
         player.heal(healAmount);
         System.out.println("💚 Du erholst dich und erhältst " + healAmount + " HP zurück!");
@@ -321,11 +317,9 @@ class Game {
     public void generateNewRoom() {
         RoomTemplate template = roomTemplates.get(random.nextInt(roomTemplates.size()));
 
-        // Verwende min/max aus Template mit Schwierigkeitsskalierung
         this.setCurrentRoom(new RoomBuilder().withTemplateAndDifficulty(template, difficultyLevel).build());
     }
 
-    // ...existing getters and setters...
     public String getName() {
         return name;
     }
