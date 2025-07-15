@@ -42,7 +42,7 @@ public class Main {
              * Spieler und Spielinstanz erzeugen und Spiel starten
              */
             Player player = new Player("Luke Skywalker", 100, 50, 40);
-            Game game = new Game("StarWars", roomTemplates, possibleEnemysRoom0, player);
+            Game game = new Game("StarWars", roomTemplates, player);
             game.start();
         }
 }

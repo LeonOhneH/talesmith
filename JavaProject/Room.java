@@ -164,14 +164,23 @@ class Room {
         StringBuilder sb = new StringBuilder();
         sb.append("🏛️ Raum: ").append(name).append("\n");
 
+        List<Enemy> allEnemies = getEnemies();
         List<Enemy> aliveEnemies = getAliveEnemies();
-        if (!aliveEnemies.isEmpty()) {
-            sb.append("👹 Lebende Gegner: ").append(aliveEnemies.size()).append("\n");
-            for (Enemy enemy : aliveEnemies) {
-                sb.append("   • ").append(enemy.toString()).append("\n");
+
+        if (!allEnemies.isEmpty()) {
+            sb.append("👹 Gegner im Raum: ").append(allEnemies.size()).append("\n");
+            sb.append("💚 Lebende Gegner: ").append(aliveEnemies.size()).append("\n");
+            sb.append("💀 Besiegte Gegner: ").append(allEnemies.size() - aliveEnemies.size()).append("\n");
+
+            for (Enemy enemy : allEnemies) {
+                if (enemy.isAlive()) {
+                    sb.append("   • ").append(enemy.toString()).append("\n");
+                } else {
+                    sb.append("   • 💀 ").append(enemy.getName()).append(" (BESIEGT)\n");
+                }
             }
         } else {
-            sb.append("✅ Alle Gegner besiegt!\n");
+            sb.append("✅ Keine Gegner im Raum!\n");
         }
 
         sb.append("🎯 Status: ").append(cleared ? "Abgeschlossen" : "In Bearbeitung");

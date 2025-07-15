@@ -23,11 +23,10 @@ class Game {
         this.difficultyLevel = 1;
     }
 
-    public Game(String name, List<RoomTemplate> roomTemplates, List<EnemyTemplate> enemyTemplates, Player player) {
+    public Game(String name, List<RoomTemplate> roomTemplates, Player player) {
         this();
         this.setName(name);
         this.setRoomTemplates(roomTemplates);
-        this.setEnemyTemplates(enemyTemplates);
         this.setPlayer(player);
     }
 
@@ -184,14 +183,20 @@ class Game {
         // Schöne Health Bar für den Spieler
         displayHealthBar(player);
 
-        List<Enemy> aliveEnemies = currentRoom.getAliveEnemies();
-        if (!aliveEnemies.isEmpty()) {
-            System.out.println("\n👹 Lebende Gegner (" + aliveEnemies.size() + "):");
-            for (int i = 0; i < aliveEnemies.size(); i++) {
-                Enemy enemy = aliveEnemies.get(i);
-                System.out.print("   " + (i + 1) + ". " + enemy.getName());
-                System.out.println(" ⚔️AP:" + enemy.getAp() + " ⚡Speed:" + enemy.getAgility());
-                displayHealthBar(enemy);
+        // Alle Gegner anzeigen (lebende und tote)
+        List<Enemy> allEnemies = currentRoom.getEnemies();
+        if (!allEnemies.isEmpty()) {
+            System.out.println("\n👹 Gegner im Raum (" + allEnemies.size() + "):");
+            for (int i = 0; i < allEnemies.size(); i++) {
+                Enemy enemy = allEnemies.get(i);
+                if (enemy.isAlive()) {
+                    System.out.print("   " + (i + 1) + ". " + enemy.getName());
+                    System.out.println(" ⚔️AP:" + enemy.getAp() + " ⚡Speed:" + enemy.getAgility());
+                    displayHealthBar(enemy);
+                } else {
+                    // Tote Gegner mit Totenkopf anzeigen
+                    System.out.println("   " + (i + 1) + ". 💀 " + enemy.getName() + " (BESIEGT)");
+                }
             }
         }
         System.out.println();
@@ -214,11 +219,19 @@ class Game {
         }
 
         System.out.println("\n⚔️  Welchen Gegner möchtest du angreifen?");
-        for (int i = 0; i < aliveEnemies.size(); i++) {
-            Enemy enemy = aliveEnemies.get(i);
-            System.out.print((i + 1) + ". " + enemy.getName());
-            System.out.println(
-                    " (HP: " + enemy.getHp() + ", AP: " + enemy.getAp() + ", Speed: " + enemy.getAgility() + ")");
+
+        // Alle Gegner anzeigen, aber nur lebende wählbar machen
+        List<Enemy> allEnemies = currentRoom.getEnemies();
+        List<Integer> aliveIndices = new ArrayList<>();
+
+        for (int i = 0; i < allEnemies.size(); i++) {
+            Enemy enemy = allEnemies.get(i);
+            if (enemy.isAlive()) {
+                aliveIndices.add(i);
+                System.out.print((aliveIndices.size()) + ". " + enemy.getName());
+                System.out.println(
+                        " (HP: " + enemy.getHp() + ", AP: " + enemy.getAp() + ", Speed: " + enemy.getAgility() + ")");
+            }
         }
 
         int choice = getValidInput(1, aliveEnemies.size());
@@ -358,7 +371,9 @@ class Game {
         int emptyBars = barWidth - filledBars;
 
         StringBuilder healthBar = new StringBuilder();
-        healthBar.append(healthIcon).append(" ");
+
+        // "Lebenspunkte" vor dem Herz hinzufügen
+        healthBar.append("Lebenspunkte ").append(healthIcon).append(" ");
 
         // Gefüllte Balken
         for (int i = 0; i < filledBars; i++) {
