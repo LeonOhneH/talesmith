@@ -11,7 +11,8 @@ class EnemyBuilder {
         this.agility = template.getAgility();
     }
 
-    public EnemyBuilder () {}
+    public EnemyBuilder() {
+    }
 
     public EnemyBuilder withTemplate(EnemyTemplate template) {
         this.name = template.getName();
@@ -21,23 +22,11 @@ class EnemyBuilder {
         return this;
     }
 
-    public EnemyBuilder withName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public EnemyBuilder withHp(int hp) {
-        this.hp = hp;
-        return this;
-    }
-
-    public EnemyBuilder withAp(int ap) {
-        this.ap = ap;
-        return this;
-    }
-
-    public EnemyBuilder withAgility(int agility) {
-        this.agility = agility;
+    // Neue Methode für Schwierigkeitsskalierung
+    public EnemyBuilder scaleDifficulty(double factor) {
+        this.hp = (int) (this.hp * factor);
+        this.ap = (int) (this.ap * factor);
+        this.agility = (int) (this.agility * factor);
         return this;
     }
 

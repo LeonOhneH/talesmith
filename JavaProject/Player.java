@@ -30,7 +30,7 @@ class Player extends Creature {
     }
 
     private void checkLevelUp() {
-        int expNeeded = level * 100;
+        int expNeeded = level * 10;
         if (experience >= expNeeded) {
             level++;
             experience -= expNeeded;

@@ -103,6 +103,7 @@ class Room {
 
             int expGain = currentEnemy.getAp() + currentEnemy.getMaxHp() / 10;
             System.out.println("✨ Du erhältst " + expGain + " Erfahrungspunkte!");
+            player.gainExperience(expGain);
 
             int healAmount = 5;
             player.heal(healAmount);
