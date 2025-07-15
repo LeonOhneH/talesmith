@@ -1,86 +1,165 @@
-@startuml class diagram
+@startuml ComponentDiagram
 '======================
 '   Domänenklassen
 '======================
 class Game {
-    -name: String
-    -roomTemplates: List<RoomTemplate>
-    -enemyTemplates: List<EnemyTemplate>
-    -player: Player
-    -currentRoom: Room
-    
-    +Game(name, roomTemplates, enemyTemplates): 
-    +start(): void
-    +gameLoop(): void
-    +generateNewRoom(): void
+    - name: String
+    - roomTemplates: List<RoomTemplate>
+    - enemyTemplates: List<EnemyTemplate>
+    - player: Player
+    - currentRoom: Room
+
+    + Game()
+    + Game(name: String, roomTemplates: List<RoomTemplate>, enemyTemplates: List<EnemyTemplate>)
+    + start(): void
+    + gameLoop(): int
+    + generateNewRoom(): void
+    + <<getters/setters>>
 }
 
 class Room {
-    -name: String
-    -enemies: List<Enemy>
-    -cleared: boolean
+    - name: String
+    - enemies: List<Enemy>
+    - cleared: boolean
 
-    +Room(name, enemies)
+    + Room(name: String, enemies: List<Enemy>)
+    + checkCleared(): void
+    + fight(player: Player, currentEnemy: Enemy): void
+    + toString(): String
+    + <<getters/setters>>
 }
 
 abstract class Creature {
-    -name: String
-    -hp: int
-    -ap: int
-    -agility: int
+    - name: String
+    - hp: int
+    - ap: int
+    - agility: int
 
-    +Creature(name, hp, ap, agility)
+    + Creature(name: String, hp: int, ap: int, agility: int)
+    + isDead(): boolean
+    + isAlive(): boolean
+    + attack(c: Creature): void
+    + toString(): String
+    + <<getters/setters>>
 }
 
 class Player {
+    - name: String
+    - hp: int
+    - ap: int
+    - agility: int
+    - inventory: List<Item>
 
-    +Player(name, hp, ap, agility)
+    + Player(name: String, hp: int, ap: int, agility: int)
+
 }
+
 
 class Enemy {
-
-    +Enemy(name, hp, ap, agility)    
+    + Enemy(name: String, hp: int, ap: int, agility: int)
 }
 
-class RoomTemplate {
-    -name: String
-    -possibleEnemies: List<EnemyTemplate>
+abstract class Item {
 
-    +RoomTemplate(name, possibleEnemies)
 }
 
-class EnemyTemplate {
-    -name: String
-    -hp: int
-    -ap: int
-    -agility: int
+class Weapon {
+    - type: WeaponTypeE
+    - damage: int
 
-    +EnemyTemplate(name, hp, ap, agility)
+    + Weapon(name: String, description: String, type: WeaponTypeE, damage: int)
+    + attack(c: Creature): void
+    + toString(): String
+    + <<getters/setters>>
 }
+
+class Consumeable {
+
+}
+
+'======================
+'   Template-Klassen
+'======================
+
+together {
+    class RoomTemplate {
+        - name: String
+        - possibleEnemies: List<EnemyTemplate>
+
+        + RoomTemplate()
+        + RoomTemplate(name: String)
+        + RoomTemplate(name: String, possibleEnemies: List<EnemyTemplate>)
+        + getRandomEnemyTemplate(): EnemyTemplate
+        + <<getters/setters>>
+    }
+
+    class EnemyTemplate {
+        - name: String
+        - hp: int
+        - ap: int
+        - agility: int
+
+        + EnemyTemplate()
+        + EnemyTemplate(name: String, hp: int, ap: int, agility: int)
+        + <<getters/setters>>
+    }
+
+    abstract class ItemTemplate {
+        - name: String
+        - description: String
+
+        + ItemTemplate()
+        + ItemTemplate(name: String, description: String)
+        + <<getters/setters>>
+    }
+}
+
+class WeaponTemplate {
+    - type: WeaponTypeE
+    - damage: int
+
+    + WeaponTemplate()
+    + WeaponTemplate(name: String, description: String, type: WeaponTypeE, damage: int)
+    + <<getters/setters>>
+}
+
+enum WeaponTypeE {
+
+}
+
+class ConsumeableTemplate {
+
+}
+
 
 '======================
 '   Builder-Klassen
 '======================
 class RoomBuilder {
-    -template: RoomTemplate
-    -enemies: List<Enemy>
+    - template: RoomTemplate
+    - enemies: List<Enemy>
 
-    +RoomBuilder(template, enemies)
-    +withTemplate(RoomTemplate): RoomBuilder
-    +addEnemy(Enemy): RoomBuilder
-    +build(): Room
+    + RoomBuilder()
+    + RoomBuilder(template: RoomTemplate, enemies: List<Enemy>)
+    + withTemplate(template: RoomTemplate, numberOfEnemies: int): RoomBuilder
+    + addEnemy(enemy: Enemy): RoomBuilder
+    + build(): Room
 }
 
 class EnemyBuilder {
-    -template: EnemyTemplate
-    
-    +EnemyBuilder(template)
-    +withTemplate(EnemyTemplate): EnemyBuilder
-    +withName(String): EnemyBuilder
-    +withHp(int): EnemyBuilder
-    +withAp(int): EnemyBuilder
-    +withAgility(int): EnemyBuilder
-    +build(): Enemy
+    - name: String
+    - hp: int
+    - ap: int
+    - agility: int
+
+    + EnemyBuilder()
+    + EnemyBuilder(template: EnemyTemplate)
+    + withTemplate(template: EnemyTemplate): EnemyBuilder
+    + withName(name: String): EnemyBuilder
+    + withHp(hp: int): EnemyBuilder
+    + withAp(ap: int): EnemyBuilder
+    + withAgility(agility: int): EnemyBuilder
+    + build(): Enemy
 }
 
 '======================
@@ -89,11 +168,24 @@ class EnemyBuilder {
 Game *-- Room
 Game *-- Player
 Game *-- RoomTemplate
-Game *-- EnemyTemplate
+RoomTemplate *-- EnemyTemplate
+RoomTemplate *-- ItemTemplate
+
+ItemTemplate <|-- WeaponTemplate
+ItemTemplate <|-- ConsumeableTemplate
+
 Game ..> RoomBuilder     : uses
 Game ..> EnemyBuilder    : uses
 
 Room o-- Enemy
+Room *-- Item
+Creature *-- Item
+
+Item <|-- Weapon
+Item <|-- Consumeable
+
+Weapon --> WeaponTypeE
+WeaponTemplate --> WeaponTypeE
 
 Player --|> Creature
 Enemy  --|> Creature
