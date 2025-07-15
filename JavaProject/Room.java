@@ -64,42 +64,82 @@ class Room {
             return;
         }
 
+        System.out.println("\n🔥 ══════════════════════════════════════════════════════════════");
+        System.out.println("                        ⚔️ KAMPF BEGINNT! ⚔️");
         System.out.println("══════════════════════════════════════════════════════════════");
-        System.out.println("KAMPF BEGINNT!");
-        System.out.println("   " + player.getName() + " gegen " + currentEnemy.getName());
+        System.out.println("   " + player.getName() + " VS " + currentEnemy.getName());
+        System.out.println();
+
+        // Kämpfer-Stats anzeigen
+        System.out.println("👤 " + player.getName() + ":");
+        System.out.println("   ❤️  HP: " + player.getHp() + "/" + player.getMaxHp());
+        System.out.println("   ⚔️  AP: " + player.getAp());
+        System.out.println("   ⚡ Speed: " + player.getAgility());
+
+        System.out.println();
+
+        System.out.println("👹 " + currentEnemy.getName() + ":");
+        System.out.println("   ❤️  HP: " + currentEnemy.getHp() + "/" + currentEnemy.getMaxHp());
+        System.out.println("   ⚔️  AP: " + currentEnemy.getAp());
+        System.out.println("   ⚡ Speed: " + currentEnemy.getAgility());
+
+        System.out.println();
+
+        // Wer greift zuerst an bestimmen und anzeigen
+        boolean playerFirst = player.getAgility() >= currentEnemy.getAgility();
+        if (playerFirst) {
+            if (player.getAgility() > currentEnemy.getAgility()) {
+                System.out.println("⚡ " + player.getName() + " ist schneller und greift zuerst an! (Speed: "
+                        + player.getAgility() + " vs " + currentEnemy.getAgility() + ")");
+            } else {
+                System.out.println(
+                        "⚖️  Gleiche Geschwindigkeit! " + player.getName() + " greift als Spieler zuerst an! (Speed: "
+                                + player.getAgility() + " vs " + currentEnemy.getAgility() + ")");
+            }
+        } else {
+            System.out.println("⚡ " + currentEnemy.getName() + " ist schneller und greift zuerst an! (Speed: "
+                    + currentEnemy.getAgility() + " vs " + player.getAgility() + ")");
+        }
+
         System.out.println("══════════════════════════════════════════════════════════════");
 
         int rounds = 0;
         while (currentEnemy.isAlive() && player.isAlive() && rounds < 20) {
             rounds++;
-            System.out.println("🔄 Runde " + rounds + ":");
+            System.out.println("\n━━━━━━━━━━━━━━━━━━━━━ RUNDE " + rounds + " ━━━━━━━━━━━━━━━━━━━━━");
 
             // Geschwindigkeit bestimmt Angriffsreihenfolge
-            if (player.getAgility() >= currentEnemy.getAgility()) {
+            if (playerFirst) {
                 player.attack(currentEnemy);
                 if (currentEnemy.isAlive()) {
+                    System.out.println("   ────────────────────────────────────────");
                     currentEnemy.attack(player);
                 }
             } else {
                 currentEnemy.attack(player);
                 if (player.isAlive()) {
+                    System.out.println("   ────────────────────────────────────────");
                     player.attack(currentEnemy);
                 }
             }
 
             if (currentEnemy.isAlive() && player.isAlive()) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(1500); // Etwas länger für bessere Lesbarkeit
                 } catch (InterruptedException e) {
                 }
             }
         }
 
-        System.out.println("⚔️ ══════════════════════════════════════════════════════════════");
+        System.out.println("\n🔥 ══════════════════════════════════════════════════════════════");
+        System.out.println("                        ⚔️ KAMPF BEENDET! ⚔️");
+        System.out.println("══════════════════════════════════════════════════════════════");
+
         if (player.isDead()) {
-            System.out.println("💀 Du wurdest besiegt! Das Abenteuer endet hier...");
+            System.out.println("💀 " + player.getName() + " wurde besiegt! Das Abenteuer endet hier...");
         } else if (currentEnemy.isDead()) {
-            System.out.println("🎉 Du hast " + currentEnemy.getName() + " besiegt!");
+            System.out.println("🎉 " + player.getName() + " hat " + currentEnemy.getName() + " besiegt!");
+            System.out.println("🏆 Sieg nach " + rounds + " Runden!");
 
             int expGain = currentEnemy.getAp() + currentEnemy.getMaxHp() / 10;
             System.out.println("✨ Du erhältst " + expGain + " Erfahrungspunkte!");
@@ -114,7 +154,7 @@ class Room {
                 System.out.println("🏆 Alle Gegner in diesem Raum wurden besiegt!");
             }
         } else {
-            System.out.println("⏰ Der Kampf wurde nach " + rounds + " Runden beendet!");
+            System.out.println("⏰ Der Kampf wurde nach " + rounds + " Runden beendet (Zeitlimit erreicht)!");
         }
         System.out.println("══════════════════════════════════════════════════════════════\n");
     }

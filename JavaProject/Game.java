@@ -104,7 +104,9 @@ class Game {
         int bonusHeal = 30 + (difficultyLevel * 10);
         player.heal(bonusHeal);
         System.out.println("💚 Bonus-Heilung: +" + bonusHeal + " HP!");
-        System.out.println("❤️  Aktuelle HP: " + player.getHp() + "/" + player.getMaxHp());
+
+        // Health Bar nach Bonus-Heilung zeigen
+        displayHealthBar(player);
         System.out.println();
         pause();
     }
@@ -178,15 +180,18 @@ class Game {
 
     private void displayRoomStatus() {
         System.out.println("📍 Aktueller Raum: " + currentRoom.getName() + " (Level " + difficultyLevel + ")");
-        System.out.println("❤️  Deine HP: " + player.getHp() + "/" + player.getMaxHp());
+
+        // Schöne Health Bar für den Spieler
+        displayHealthBar(player);
 
         List<Enemy> aliveEnemies = currentRoom.getAliveEnemies();
         if (!aliveEnemies.isEmpty()) {
             System.out.println("\n👹 Lebende Gegner (" + aliveEnemies.size() + "):");
             for (int i = 0; i < aliveEnemies.size(); i++) {
                 Enemy enemy = aliveEnemies.get(i);
-                System.out.println("   " + (i + 1) + ". " + enemy.getName() +
-                        " (HP: " + enemy.getHp() + ", AP: " + enemy.getAp() + ")");
+                System.out.print("   " + (i + 1) + ". " + enemy.getName());
+                System.out.println(" ⚔️AP:" + enemy.getAp() + " ⚡Speed:" + enemy.getAgility());
+                displayHealthBar(enemy);
             }
         }
         System.out.println();
@@ -211,8 +216,9 @@ class Game {
         System.out.println("\n⚔️  Welchen Gegner möchtest du angreifen?");
         for (int i = 0; i < aliveEnemies.size(); i++) {
             Enemy enemy = aliveEnemies.get(i);
-            System.out.println((i + 1) + ". " + enemy.getName() +
-                    " (HP: " + enemy.getHp() + ")");
+            System.out.print((i + 1) + ". " + enemy.getName());
+            System.out.println(
+                    " (HP: " + enemy.getHp() + ", AP: " + enemy.getAp() + ", Speed: " + enemy.getAgility() + ")");
         }
 
         int choice = getValidInput(1, aliveEnemies.size());
@@ -228,7 +234,10 @@ class Game {
     private void displayPlayerStats() {
         System.out.println("\n📊 ═══ CHARAKTERWERTE ═══");
         System.out.println("👤 Name: " + player.getName());
-        System.out.println("❤️  HP: " + player.getHp() + "/" + player.getMaxHp());
+
+        // Health Bar auch in den Charakterwerten
+        displayHealthBar(player);
+
         System.out.println("⚔️  Angriffskraft: " + player.getAp());
         System.out.println("⚡ Geschwindigkeit: " + player.getAgility());
         System.out.println("🎯 Level: " + player.getLevel());
@@ -254,7 +263,9 @@ class Game {
         int healAmount = Math.max(10, 25 - difficultyLevel);
         player.heal(healAmount);
         System.out.println("💚 Du erholst dich und erhältst " + healAmount + " HP zurück!");
-        System.out.println("❤️  Aktuelle HP: " + player.getHp() + "/" + player.getMaxHp());
+
+        // Health Bar nach Heilung zeigen
+        displayHealthBar(player);
         System.out.println();
     }
 
@@ -318,6 +329,52 @@ class Game {
         RoomTemplate template = roomTemplates.get(random.nextInt(roomTemplates.size()));
 
         this.setCurrentRoom(new RoomBuilder().withTemplateAndDifficulty(template, difficultyLevel).build());
+    }
+
+    private void displayHealthBar(Creature creature) {
+        int maxHp = creature.getMaxHp();
+        int currentHp = creature.getHp();
+
+        // Berechne Prozentsatz
+        double healthPercent = (double) currentHp / maxHp;
+
+        // Bestimme Farbe basierend auf HP-Prozentsatz
+        String healthIcon;
+        if (healthPercent > 0.75) {
+            healthIcon = "❤️";
+        } else if (healthPercent > 0.5) {
+            healthIcon = "🧡";
+        } else if (healthPercent > 0.25) {
+            healthIcon = "💛";
+        } else if (healthPercent > 0) {
+            healthIcon = "💔";
+        } else {
+            healthIcon = "💀";
+        }
+
+        // Erstelle den Health Bar (20 Zeichen breit)
+        int barWidth = 20;
+        int filledBars = (int) (healthPercent * barWidth);
+        int emptyBars = barWidth - filledBars;
+
+        StringBuilder healthBar = new StringBuilder();
+        healthBar.append(healthIcon).append(" ");
+
+        // Gefüllte Balken
+        for (int i = 0; i < filledBars; i++) {
+            healthBar.append("█");
+        }
+
+        // Leere Balken
+        for (int i = 0; i < emptyBars; i++) {
+            healthBar.append("░");
+        }
+
+        // HP-Zahlen und Prozent
+        healthBar.append(" ").append(currentHp).append("/").append(maxHp);
+        healthBar.append(" (").append(String.format("%.0f", healthPercent * 100)).append("%)");
+
+        System.out.println("   " + healthBar.toString());
     }
 
     public String getName() {
