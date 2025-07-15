@@ -1,29 +1,22 @@
 package main.java.org.templates;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RoomTemplate {
     private String name;
     private List<EnemyTemplate> possibleEnemies;
+    private HashMap<ItemTemplate, Float> possibleDrops;
     private int minEnemies;
     private int maxEnemies;
 
-    public RoomTemplate(String name, List<EnemyTemplate> possibleEnemies, int minEnemies, int maxEnemies) {
+    public RoomTemplate(String name, List<EnemyTemplate> possibleEnemies, int minEnemies, int maxEnemies, HashMap<ItemTemplate, Float> possibleDrops) {
         this.setName(name);
         this.setPossibleEnemies(possibleEnemies);
         this.setMinEnemies(minEnemies);
         this.setMaxEnemies(maxEnemies);
-    }
-
-    public RoomTemplate(String name, List<EnemyTemplate> possibleEnemies) {
-        this(name, possibleEnemies, 1, 3); // Rückfall wenn kein min-max angegeben wurde
-    }
-
-    public RoomTemplate(String name) {
-        this.name = name;
-        this.minEnemies = 1;
-        this.maxEnemies = 3;
+        this.possibleDrops = possibleDrops;
     }
 
     public RoomTemplate() {

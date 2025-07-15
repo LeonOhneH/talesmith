@@ -13,6 +13,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 
+
 class Game {
     private String name;
     private List<RoomTemplate> roomTemplates;
@@ -40,40 +41,88 @@ class Game {
         this.setPlayer(player);
     }
 
+    private void clearScreen() {
+        // ANSI escape codes für das Löschen des Bildschirms
+        System.out.print("\033[2J\033[H");
+        System.out.flush();
+    }
+
+    private void sleep(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private void animatedPrint(String text, int delay) {
+        for (char c : text.toCharArray()) {
+            System.out.print(c);
+            System.out.flush();
+            sleep(delay);
+        }
+    }
+
+    private void drawBox(String title, String[] content) {
+        clearScreen();
+
+        int maxWidth = 70;
+        String horizontal = "═".repeat(maxWidth - 2);
+
+        System.out.println("╔" + horizontal + "╗");
+
+        // Titel zentrieren
+        if (title != null && !title.isEmpty()) {
+            int padding = (maxWidth - 2 - title.length()) / 2;
+            String titleLine = " ".repeat(padding) + title + " ".repeat(maxWidth - 2 - padding - title.length());
+            System.out.println("║" + titleLine + "║");
+            System.out.println("╠" + horizontal + "╣");
+        }
+
+        // Content
+        for (String line : content) {
+            int padding = maxWidth - 2 - line.replaceAll("[\u2600-\u27BF]", "").length();
+            if (padding < 0)
+                padding = 0;
+            String contentLine = line + " ".repeat(padding);
+            if (contentLine.length() > maxWidth - 2) {
+                contentLine = contentLine.substring(0, maxWidth - 2);
+            }
+            System.out.println("║" + contentLine + "║");
+        }
+
+        // Fülle den Rest bis zur gewünschten Höhe (ca. 20 Zeilen)
+        for (int i = content.length; i < 15; i++) {
+            System.out.println("║" + " ".repeat(maxWidth - 2) + "║");
+        }
+
+        System.out.println("╚" + horizontal + "╝");
+    }
+
     public void start() {
         displayWelcome();
         gameLoop();
     }
 
     private void displayWelcome() {
-        int minContentWidth = 60;
-        String welcome = "🎮 ENDLOSES STAR WARS ABENTEUER! 🎮";
-        String subtitle = "Überlebe so lange wie möglich!";
+        String[] welcomeContent = {
+                "",
+                "🎮 ENDLOSES ABENTEUER! 🎮",
+                "",
+                "Überlebe so lange wie möglich!",
+                "",
+                "Spieler: " + player.getName(),
+                "",
+                "Bereit für das Abenteuer?",
+                "",
+                "Drücke Enter zum Starten..."
+        };
 
-        int contentWidth = Math.max(minContentWidth,
-                Math.max(name.length(), Math.max(welcome.length(), subtitle.length())));
+        drawBox(name, welcomeContent);
+        scanner.nextLine();
 
-        String horizontal = "═".repeat(contentWidth);
-        String emptyLine = " ".repeat(contentWidth);
-
-        System.out.println("╔" + horizontal + "╗");
-
-        printCenteredLine(name, contentWidth);
-        System.out.println("║" + emptyLine + "║");
-        printCenteredLine(welcome, contentWidth);
-        printCenteredLine(subtitle, contentWidth);
-        System.out.println("║" + emptyLine + "║");
-
-        System.out.println("╚" + horizontal + "╝");
-        System.out.println();
-    }
-
-    private void printCenteredLine(String text, int width) {
-        int paddingLeft = (width - text.length()) / 2;
-        int paddingRight = width - text.length() - paddingLeft;
-        String left = " ".repeat(paddingLeft);
-        String right = " ".repeat(paddingRight);
-        System.out.println("║" + left + text + right + "║");
+        // Clear nach Enter
+        clearScreen();
     }
 
     public int gameLoop() {
@@ -82,14 +131,13 @@ class Game {
             if (result == 0) {
                 roomsCleared++;
 
-                // Alle 2 Räume wird die Schwierigkeit erhöht
                 if (roomsCleared % 2 == 0) {
                     difficultyLevel++;
                     displayDifficultyIncrease();
                 }
 
-                System.out.println("🚪 Du gehst zum nächsten Raum...\n");
-                pause();
+                displayRoomCleared();
+                sleep(1000);
             } else {
                 displayGameOver();
 
@@ -104,35 +152,49 @@ class Game {
     }
 
     private void displayDifficultyIncrease() {
-        System.out.println("\n🔥 ══════════════════════════════════════════════════════════════");
-        System.out.println("   ⚡ SCHWIERIGKEITSGRAD ERHÖHT! ⚡");
-        System.out.println("   🎯 Level " + difficultyLevel + " erreicht!");
-        System.out.println("   👹 Mehr und stärkere Gegner erwarten dich!");
-        System.out.println("══════════════════════════════════════════════════════════════");
+        String[] content = {
+                "",
+                "⚡ SCHWIERIGKEITSGRAD ERHÖHT! ⚡",
+                "",
+                "🎯 Level " + difficultyLevel + " erreicht!",
+                "👹 Stärkere Gegner erwarten dich!",
+                "",
+                "💚 Bonus-Heilung erhalten!",
+                ""
+        };
+
+        drawBox("LEVEL UP!", content);
 
         int bonusHeal = 30 + (difficultyLevel * 10);
         player.heal(bonusHeal);
-        System.out.println("💚 Bonus-Heilung: +" + bonusHeal + " HP!");
 
-        // Health Bar nach Bonus-Heilung zeigen
-        displayHealthBar(player);
-        System.out.println();
-        pause();
+        sleep(2000);
+
+        // Clear nach Anzeige
+        clearScreen();
     }
 
     private boolean askForRestart() {
-        System.out.println("\n🔄 ══════════════════════════════════════════════════════════════");
-        System.out.println("   Möchtest du ein neues Spiel starten?");
-        System.out.println("══════════════════════════════════════════════════════════════");
-        System.out.print("❓ Neues Spiel? (j/n): ");
+        String[] content = {
+                "",
+                "💀 GAME OVER 💀",
+                "",
+                "🏛️ Räume überlebt: " + roomsCleared,
+                "💀 Gegner besiegt: " + totalEnemiesKilled,
+                "🔥 Schwierigkeit: Level " + difficultyLevel,
+                "",
+                "Möchtest du ein neues Spiel starten?",
+                "",
+                "(j/n): "
+        };
+
+        drawBox("SPIEL BEENDET", content);
+
         String input = scanner.nextLine().toLowerCase();
         return input.equals("j") || input.equals("ja") || input.equals("y") || input.equals("yes");
     }
 
     private void resetGame() {
-        System.out.println("\n🔄 Neues Spiel wird gestartet...\n");
-
-        // Statistiken zurücksetzen
         this.roomsCleared = 0;
         this.totalEnemiesKilled = 0;
         this.difficultyLevel = 1;
@@ -153,8 +215,6 @@ class Game {
             }
 
             displayRoomStatus();
-            displayMenu();
-
             int choice = getValidInput(1, 4);
 
             switch (choice) {
@@ -174,136 +234,384 @@ class Game {
             }
         }
 
-        displayRoomCleared();
         return 0;
     }
 
     private void displayRoomEntry() {
-        System.out.println("🏛️ ══════════════════════════════════════════════════════════════");
-        System.out.println("   Du betrittst: " + currentRoom.getName());
-        System.out.println("   🔥 Schwierigkeitsgrad: Level " + difficultyLevel);
-        System.out.println("   👹 Anzahl Gegner: " + currentRoom.getEnemies().size());
-        System.out.println("══════════════════════════════════════════════════════════════");
-        System.out.println();
+        String[] content = {
+                "",
+                "🏛️ Du betrittst: " + currentRoom.getName(),
+                "",
+                "🔥 Schwierigkeitsgrad: Level " + difficultyLevel,
+                "👹 Anzahl Gegner: " + currentRoom.getEnemies().size(),
+                "",
+                "Bereite dich auf den Kampf vor!",
+                "",
+                "Drücke Enter um fortzufahren..."
+        };
+
+        drawBox("NEUER RAUM", content);
+        scanner.nextLine();
+
+        // Clear nach Enter
+        clearScreen();
     }
 
     private void displayRoomStatus() {
-        System.out.println("📍 Aktueller Raum: " + currentRoom.getName() + " (Level " + difficultyLevel + ")");
+        List<String> content = new ArrayList<>();
+        content.add("");
+        content.add("📍 " + currentRoom.getName() + " (Level " + difficultyLevel + ")");
+        content.add("");
 
-        // Schöne Health Bar für den Spieler
-        displayHealthBar(player);
+        // Spieler Status
+        content.add("👤 " + player.getName() + " (Lv." + player.getLevel() + ")");
+        content.add(getHealthBarString(player));
+        content.add("");
 
-        // Alle Gegner anzeigen (lebende und tote)
+        // Gegner Status
         List<Enemy> allEnemies = currentRoom.getEnemies();
-        if (!allEnemies.isEmpty()) {
-            System.out.println("\n👹 Gegner im Raum (" + allEnemies.size() + "):");
-            for (int i = 0; i < allEnemies.size(); i++) {
-                Enemy enemy = allEnemies.get(i);
-                if (enemy.isAlive()) {
-                    System.out.print("   " + (i + 1) + ". " + enemy.getName());
-                    System.out.println(" ⚔️AP:" + enemy.getAp() + " ⚡Speed:" + enemy.getAgility());
-                    displayHealthBar(enemy);
-                } else {
-                    // Tote Gegner mit Totenkopf anzeigen
-                    System.out.println("   " + (i + 1) + ". 💀 " + enemy.getName() + " (BESIEGT)");
-                }
+        content.add("👹 Gegner (" + allEnemies.size() + "):");
+
+        for (int i = 0; i < allEnemies.size() && i < 5; i++) {
+            Enemy enemy = allEnemies.get(i);
+            if (enemy.isAlive()) {
+                content.add("  " + (i + 1) + ". " + enemy.getName() + " (AP:" + enemy.getAp() + ")");
+            } else {
+                content.add("  " + (i + 1) + ". 💀 " + enemy.getName() + " (BESIEGT)");
             }
         }
-        System.out.println();
-    }
 
-    private void displayMenu() {
-        System.out.println("⚔️  Was möchtest du tun?");
-        System.out.println("1. 🗡️  Kämpfen");
-        System.out.println("2. 📊 Charakterwerte anzeigen");
-        System.out.println("3. 📈 Spielstatistiken anzeigen");
-        System.out.println("4. 🚪 Spiel beenden");
-        System.out.print("Deine Wahl: ");
+        content.add("");
+        content.add("⚔️ Was möchtest du tun?");
+        content.add("1. 🗡️ Kämpfen  2. 📊 Stats  3. 📈 Info  4. 🚪 Beenden");
+        content.add("");
+        content.add("Deine Wahl: ");
+
+        drawBox("AKTUELLER RAUM", content.toArray(new String[0]));
     }
 
     private void handleFight() {
         List<Enemy> aliveEnemies = currentRoom.getAliveEnemies();
         if (aliveEnemies.isEmpty()) {
-            System.out.println("🎉 Alle Gegner wurden bereits besiegt!");
+            String[] content = {
+                    "",
+                    "🎉 Alle Gegner wurden bereits besiegt!",
+                    "",
+                    "Drücke Enter um fortzufahren..."
+            };
+            drawBox("KAMPF", content);
+            scanner.nextLine();
+
+            // Clear nach Enter
+            clearScreen();
             return;
         }
 
-        System.out.println("\n⚔️  Welchen Gegner möchtest du angreifen?");
+        // Gegner auswählen
+        List<String> content = new ArrayList<>();
+        content.add("");
+        content.add("⚔️ Welchen Gegner möchtest du angreifen?");
+        content.add("");
 
-        // Alle Gegner anzeigen, aber nur lebende wählbar machen
-        List<Enemy> allEnemies = currentRoom.getEnemies();
-        List<Integer> aliveIndices = new ArrayList<>();
-
-        for (int i = 0; i < allEnemies.size(); i++) {
-            Enemy enemy = allEnemies.get(i);
-            if (enemy.isAlive()) {
-                aliveIndices.add(i);
-                System.out.print((aliveIndices.size()) + ". " + enemy.getName());
-                System.out.println(
-                        " (HP: " + enemy.getHp() + ", AP: " + enemy.getAp() + ", Speed: " + enemy.getAgility() + ")");
-            }
+        for (int i = 0; i < aliveEnemies.size(); i++) {
+            Enemy enemy = aliveEnemies.get(i);
+            content.add((i + 1) + ". " + enemy.getName() + " (HP:" + enemy.getHp() + " AP:" + enemy.getAp() + ")");
         }
+
+        content.add("");
+        content.add("Deine Wahl: ");
+
+        drawBox("GEGNER WÄHLEN", content.toArray(new String[0]));
 
         int choice = getValidInput(1, aliveEnemies.size());
         Enemy targetEnemy = aliveEnemies.get(choice - 1);
 
-        currentRoom.fight(player, targetEnemy);
+        // Clear nach Auswahl
+        clearScreen();
+
+        // Animierter Kampf
+        animatedFight(player, targetEnemy);
 
         if (targetEnemy.isDead()) {
             totalEnemiesKilled++;
         }
     }
 
+    private void animatedFight(Player player, Enemy enemy) {
+        clearScreen();
+
+        // Kampf-Header
+        System.out.println("╔══════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                        ⚔️ KAMPF BEGINNT! ⚔️                      ║");
+        System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+        System.out.printf("║  %s VS %s%n",
+                String.format("%-30s", player.getName()),
+                String.format("%30s", enemy.getName()));
+        System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+
+        sleep(750);
+
+        // Clear nach Header
+        clearScreen();
+
+        // Kämpfer-Stats animiert anzeigen
+        animatedPrint("👤 " + player.getName() + ":\n", 25);
+        sleep(150);
+        animatedPrint("   ❤️ HP: " + player.getHp() + "/" + player.getMaxHp() + "\n", 15);
+        sleep(150);
+        animatedPrint("   ⚔️ AP: " + player.getAp() + "\n", 15);
+        sleep(150);
+        animatedPrint("   ⚡ Speed: " + player.getAgility() + "\n", 15);
+
+        sleep(400);
+
+        animatedPrint("\n👹 " + enemy.getName() + ":\n", 25);
+        sleep(150);
+        animatedPrint("   ❤️ HP: " + enemy.getHp() + "/" + enemy.getMaxHp() + "\n", 15);
+        sleep(150);
+        animatedPrint("   ⚔️ AP: " + enemy.getAp() + "\n", 15);
+        sleep(150);
+        animatedPrint("   ⚡ Speed: " + enemy.getAgility() + "\n", 15);
+
+        sleep(750);
+
+        // Clear nach Stats
+        clearScreen();
+
+        // Geschwindigkeit bestimmen
+        boolean playerFirst = player.getAgility() >= enemy.getAgility();
+        if (playerFirst) {
+            animatedPrint("⚡ " + player.getName() + " ist schneller und greift zuerst an!\n", 20);
+        } else {
+            animatedPrint("⚡ " + enemy.getName() + " ist schneller und greift zuerst an!\n", 20);
+        }
+
+        sleep(1000);
+
+        // Kampf-Schleife
+        int rounds = 0;
+        while (enemy.isAlive() && player.isAlive() && rounds < 20) {
+            rounds++;
+
+            // Clear vor jeder Runde
+            clearScreen();
+
+            // Kompakter Rundenstatus
+            System.out.println("╔══════════════════════════════════════════════════════════════════╗");
+            System.out.printf("║                           RUNDE %d                              ║%n", rounds);
+            System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+            System.out.printf("║ 👤 %s%n", getHealthBarString(player));
+            System.out.printf("║ 👹 %s%n", getHealthBarString(enemy));
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+
+            sleep(500);
+
+            if (playerFirst) {
+                animatedAttack(player, enemy);
+                if (enemy.isAlive()) {
+                    sleep(750);
+
+                    // Clear vor Gegnerangriff
+                    clearScreen();
+                    System.out.println("╔══════════════════════════════════════════════════════════════════╗");
+                    System.out.printf("║                    RUNDE %d - GEGNER ANGRIFF                    ║%n", rounds);
+                    System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+                    System.out.printf("║ 👤 %s%n", getHealthBarString(player));
+                    System.out.printf("║ 👹 %s%n", getHealthBarString(enemy));
+                    System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+
+                    animatedAttack(enemy, player);
+                }
+            } else {
+                animatedAttack(enemy, player);
+                if (player.isAlive()) {
+                    sleep(750);
+
+                    // Clear vor Spielerangriff
+                    clearScreen();
+                    System.out.println("╔══════════════════════════════════════════════════════════════════╗");
+                    System.out.printf("║                    RUNDE %d - DEIN ANGRIFF                      ║%n", rounds);
+                    System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+                    System.out.printf("║ 👤 %s%n", getHealthBarString(player));
+                    System.out.printf("║ 👹 %s%n", getHealthBarString(enemy));
+                    System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+
+                    animatedAttack(player, enemy);
+                }
+            }
+
+            if (enemy.isAlive() && player.isAlive()) {
+                sleep(1000);
+            }
+        }
+
+        // Clear für Kampfende
+        clearScreen();
+
+        System.out.println("╔══════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                        🔥 KAMPF BEENDET! 🔥                      ║");
+        System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+
+        if (player.isDead()) {
+            animatedPrint("\n💀 " + player.getName() + " wurde besiegt!\n", 25);
+        } else if (enemy.isDead()) {
+            animatedPrint("\n🎉 " + player.getName() + " hat gewonnen!\n", 25);
+            sleep(500);
+
+            int expGain = enemy.getAp() + enemy.getMaxHp() / 10;
+            animatedPrint("✨ Du erhältst " + expGain + " Erfahrungspunkte!\n", 15);
+            player.gainExperience(expGain);
+
+            sleep(500);
+            int healAmount = 5;
+            player.heal(healAmount);
+            animatedPrint("💚 Du erholst dich: +" + healAmount + " HP!\n", 15);
+
+            currentRoom.checkCleared();
+        }
+
+        sleep(1000);
+        animatedPrint("\nDrücke Enter um fortzufahren...", 15);
+        scanner.nextLine();
+
+        // Clear nach Enter
+        clearScreen();
+    }
+
+    private void animatedAttack(Creature attacker, Creature target) {
+        animatedPrint("\n⚔️ " + attacker.getName() + " greift " + target.getName() + " an!\n", 20);
+        sleep(400);
+
+        // Angriffs-Animation
+        animatedPrint("   💪 Angriffskraft: " + attacker.getAp() + "\n", 15);
+        sleep(250);
+
+        boolean criticalHit = Math.random() < 0.1;
+        int damage = criticalHit ? (int) (attacker.getAp() * 1.5) : attacker.getAp();
+
+        if (criticalHit) {
+            animatedPrint("   💥 KRITISCHER TREFFER! ", 25);
+            sleep(250);
+            animatedPrint("Schaden: " + damage + "\n", 20);
+        } else {
+            animatedPrint("   🗡️ Schaden verursacht: " + damage + "\n", 20);
+        }
+
+        target.setHp(target.getHp() - damage);
+        sleep(300);
+
+        // Health Bar nach Angriff
+        animatedPrint("   Neuer Status: " + getHealthBarString(target) + "\n", 10);
+
+        if (target.isDead()) {
+            sleep(400);
+            animatedPrint("   💀 " + target.getName() + " wurde besiegt!\n", 25);
+        }
+
+        sleep(250);
+    }
+
+    private String getHealthBarString(Creature creature) {
+        int maxHp = creature.getMaxHp();
+        int currentHp = creature.getHp();
+        double healthPercent = (double) currentHp / maxHp;
+
+        String healthIcon;
+        if (healthPercent > 0.75) {
+            healthIcon = "❤️";
+        } else if (healthPercent > 0.5) {
+            healthIcon = "🧡";
+        } else if (healthPercent > 0.25) {
+            healthIcon = "💛";
+        } else if (healthPercent > 0) {
+            healthIcon = "💔";
+        } else {
+            healthIcon = "💀";
+        }
+
+        int barWidth = 15;
+        int filledBars = (int) (healthPercent * barWidth);
+        StringBuilder healthBar = new StringBuilder();
+
+        healthBar.append(healthIcon).append(" ");
+
+        for (int i = 0; i < filledBars; i++) {
+            healthBar.append("█");
+        }
+
+        for (int i = filledBars; i < barWidth; i++) {
+            healthBar.append("░");
+        }
+
+        healthBar.append(" ").append(currentHp).append("/").append(maxHp);
+
+        return healthBar.toString();
+    }
+
     private void displayPlayerStats() {
-        System.out.println("\n📊 ═══ CHARAKTERWERTE ═══");
-        System.out.println("👤 Name: " + player.getName());
+        String[] content = {
+                "",
+                "👤 " + player.getName(),
+                "",
+                getHealthBarString(player),
+                "",
+                "⚔️ Angriffskraft: " + player.getAp(),
+                "⚡ Geschwindigkeit: " + player.getAgility(),
+                "🎯 Level: " + player.getLevel(),
+                "✨ Erfahrung: " + player.getExperience(),
+                "",
+                "Drücke Enter um zurückzukehren..."
+        };
 
-        // Health Bar auch in den Charakterwerten
-        displayHealthBar(player);
+        drawBox("CHARAKTERWERTE", content);
+        scanner.nextLine();
 
-        System.out.println("⚔️  Angriffskraft: " + player.getAp());
-        System.out.println("⚡ Geschwindigkeit: " + player.getAgility());
-        System.out.println("🎯 Level: " + player.getLevel());
-        System.out.println("✨ Erfahrung: " + player.getExperience());
-        System.out.println("═══════════════════════════\n");
+        // Clear nach Enter
+        clearScreen();
     }
 
     private void displayGameStats() {
-        System.out.println("\n📈 ═══ SPIELSTATISTIKEN ═══");
-        System.out.println("🏛️  Räume abgeschlossen: " + roomsCleared);
-        System.out.println("💀 Gegner besiegt: " + totalEnemiesKilled);
-        System.out.println("🔥 Schwierigkeitsgrad: Level " + difficultyLevel);
-        System.out.println("🏆 Höchster Raum: " + roomsCleared);
-        System.out.println("═══════════════════════════\n");
+        String[] content = {
+                "",
+                "🏛️ Räume abgeschlossen: " + roomsCleared,
+                "💀 Gegner besiegt: " + totalEnemiesKilled,
+                "🔥 Schwierigkeitsgrad: Level " + difficultyLevel,
+                "🏆 Spieler Level: " + player.getLevel(),
+                "",
+                "Drücke Enter um zurückzukehren..."
+        };
+
+        drawBox("SPIELSTATISTIKEN", content);
+        scanner.nextLine();
+
+        // Clear nach Enter
+        clearScreen();
     }
 
     private void displayRoomCleared() {
-        System.out.println("\n🎉 ══════════════════════════════════════════════════════════════");
-        System.out.println("   ✨ RAUM ERFOLGREICH ABGESCHLOSSEN! ✨");
-        System.out.println("   🏛️  Raum #" + (roomsCleared + 1) + " gemeistert!");
-        System.out.println("══════════════════════════════════════════════════════════════");
+        String[] content = {
+                "",
+                "✨ RAUM ERFOLGREICH ABGESCHLOSSEN! ✨",
+                "",
+                "🏛️ Raum #" + (roomsCleared + 1) + " gemeistert!",
+                "",
+                "💚 Du erholst dich...",
+                "",
+                "Bereit für den nächsten Raum?"
+        };
+
+        drawBox("SIEG!", content);
 
         int healAmount = Math.max(10, 25 - difficultyLevel);
         player.heal(healAmount);
-        System.out.println("💚 Du erholst dich und erhältst " + healAmount + " HP zurück!");
 
-        // Health Bar nach Heilung zeigen
-        displayHealthBar(player);
-        System.out.println();
+        sleep(2000);
+
+        // Clear nach Anzeige
+        clearScreen();
     }
 
     private void displayGameOver() {
-        System.out.println("\n💀 ══════════════════════════════════════════════════════════════");
-        System.out.println("   ⚰️  GAME OVER ⚰️");
-        System.out.println("   Dein Abenteuer endet hier...");
-        System.out.println("══════════════════════════════════════════════════════════════");
-        System.out.println("📊 ENDSTATISTIKEN:");
-        System.out.println("🏛️  Räume überlebt: " + roomsCleared);
-        System.out.println("💀 Gegner besiegt: " + totalEnemiesKilled);
-        System.out.println("🔥 Erreichte Schwierigkeit: Level " + difficultyLevel);
-        System.out.println("🏆 Finales Spieler-Level: " + player.getLevel());
-
-        // Leistungsbewertung
         String rating = "";
         if (roomsCleared >= 50)
             rating = "🌟 LEGENDÄR! 🌟";
@@ -318,12 +626,32 @@ class Game {
         else
             rating = "🎯 Übung macht den Meister!";
 
-        System.out.println("🎖️  Bewertung: " + rating);
-        System.out.println("══════════════════════════════════════════════════════════════");
+        String[] content = {
+                "",
+                "💀 GAME OVER 💀",
+                "",
+                "📊 ENDSTATISTIKEN:",
+                "🏛️ Räume überlebt: " + roomsCleared,
+                "💀 Gegner besiegt: " + totalEnemiesKilled,
+                "🔥 Schwierigkeit: Level " + difficultyLevel,
+                "🏆 Spieler-Level: " + player.getLevel(),
+                "",
+                "🎖️ " + rating
+        };
+
+        drawBox("SPIEL BEENDET", content);
     }
 
     private boolean confirmQuit() {
-        System.out.print("\n❓ Möchtest du wirklich das Spiel beenden? (j/n): ");
+        String[] content = {
+                "",
+                "❓ Möchtest du wirklich das Spiel beenden?",
+                "",
+                "(j/n): "
+        };
+
+        drawBox("SPIEL BEENDEN?", content);
+
         String input = scanner.nextLine().toLowerCase();
         return input.equals("j") || input.equals("ja");
     }
@@ -335,73 +663,19 @@ class Game {
                 if (input >= min && input <= max) {
                     return input;
                 }
-                System.out.print("❌ Ungültige Eingabe. Bitte wähle zwischen " + min + " und " + max + ": ");
+                System.out.print("❌ Ungültige Eingabe (" + min + "-" + max + "): ");
             } catch (NumberFormatException e) {
-                System.out.print("❌ Bitte gib eine gültige Zahl ein: ");
+                System.out.print("❌ Bitte gib eine Zahl ein: ");
             }
         }
     }
 
-    private void pause() {
-        System.out.print("👆 Drücke Enter um fortzufahren...");
-        scanner.nextLine();
-        System.out.println();
-    }
-
     public void generateNewRoom() {
         RoomTemplate template = roomTemplates.get(random.nextInt(roomTemplates.size()));
-
         this.setCurrentRoom(new RoomBuilder().withTemplateAndDifficulty(template, difficultyLevel).build());
     }
 
-    private void displayHealthBar(Creature creature) {
-        int maxHp = creature.getMaxHp();
-        int currentHp = creature.getHp();
-
-        // Berechne Prozentsatz
-        double healthPercent = (double) currentHp / maxHp;
-
-        // Bestimme Farbe basierend auf HP-Prozentsatz
-        String healthIcon;
-        if (healthPercent > 0.75) {
-            healthIcon = "❤️";
-        } else if (healthPercent > 0.5) {
-            healthIcon = "🧡";
-        } else if (healthPercent > 0.25) {
-            healthIcon = "💛";
-        } else if (healthPercent > 0) {
-            healthIcon = "💔";
-        } else {
-            healthIcon = "💀";
-        }
-
-        // Erstelle den Health Bar (20 Zeichen breit)
-        int barWidth = 20;
-        int filledBars = (int) (healthPercent * barWidth);
-        int emptyBars = barWidth - filledBars;
-
-        StringBuilder healthBar = new StringBuilder();
-
-        // "Lebenspunkte" vor dem Herz hinzufügen
-        healthBar.append("Lebenspunkte ").append(healthIcon).append(" ");
-
-        // Gefüllte Balken
-        for (int i = 0; i < filledBars; i++) {
-            healthBar.append("█");
-        }
-
-        // Leere Balken
-        for (int i = 0; i < emptyBars; i++) {
-            healthBar.append("░");
-        }
-
-        // HP-Zahlen und Prozent
-        healthBar.append(" ").append(currentHp).append("/").append(maxHp);
-        healthBar.append(" (").append(String.format("%.0f", healthPercent * 100)).append("%)");
-
-        System.out.println("   " + healthBar.toString());
-    }
-
+    // ...existing code... (getter und setter bleiben unverändert)
     public String getName() {
         return name;
     }

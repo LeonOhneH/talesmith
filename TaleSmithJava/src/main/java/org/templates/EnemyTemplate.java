@@ -1,16 +1,20 @@
 package main.java.org.templates;
 
+import java.util.HashMap;
+
 public class EnemyTemplate {
     private String name;
     private int hp;
     private int ap;
     private int agility;
+    private HashMap<ItemTemplate, Float> possibleDrops;
 
-    public EnemyTemplate(String name, int hp, int ap, int agility) {
+    public EnemyTemplate(String name, int hp, int ap, int agility, HashMap<ItemTemplate, Float> possibleDrops) {
         this.setName(name);
         this.setHp(hp);
         this.setAp(ap);
         this.setAgility(agility);
+        this.possibleDrops = possibleDrops;
     }
 
     public EnemyTemplate(){}
