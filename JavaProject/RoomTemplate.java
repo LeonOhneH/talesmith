@@ -15,7 +15,7 @@ class RoomTemplate {
     }
 
     public RoomTemplate(String name, List<EnemyTemplate> possibleEnemies) {
-        this(name, possibleEnemies, 1, 3); // Standard: 1-3 Gegner
+        this(name, possibleEnemies, 1, 3); // Rückfall wenn kein min-max angegeben wurde
     }
 
     public RoomTemplate(String name) {
@@ -74,7 +74,6 @@ class RoomTemplate {
     }
 
     public int getRandomEnemyCount(int difficultyLevel) {
-        // Schwierigkeitsgrad erhöht die Anzahl der Gegner
         int adjustedMin = Math.min(minEnemies + (difficultyLevel / 3), maxEnemies);
         int adjustedMax = Math.min(maxEnemies + (difficultyLevel / 2), maxEnemies + 3);
 

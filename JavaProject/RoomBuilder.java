@@ -30,7 +30,7 @@ class RoomBuilder {
 
             Enemy scaledEnemy = new EnemyBuilder()
                     .withTemplate(baseTemplate)
-                    .scaleDifficulty(1.0 + (difficultyLevel - 1) * 0.15) // 15% pro Level
+                    .scaleDifficulty(1.0 + (difficultyLevel - 1) * 0.20)
                     .build();
 
             this.enemies.add(scaledEnemy);
@@ -38,13 +38,11 @@ class RoomBuilder {
         return this;
     }
 
-    // Neue Methode: Verwendet min/max aus Template
     public RoomBuilder withTemplate(RoomTemplate template) {
         int numberOfEnemies = template.getRandomEnemyCount();
         return withTemplate(template, numberOfEnemies);
     }
 
-    // Neue Methode: Verwendet min/max aus Template mit Schwierigkeit
     public RoomBuilder withTemplateAndDifficulty(RoomTemplate template, int difficultyLevel) {
         int numberOfEnemies = template.getRandomEnemyCount(difficultyLevel);
         return withTemplate(template, numberOfEnemies, difficultyLevel);
