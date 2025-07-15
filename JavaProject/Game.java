@@ -109,6 +109,9 @@ class Game {
 
         drawBox(name, welcomeContent);
         scanner.nextLine();
+
+        // Clear nach Enter
+        clearScreen();
     }
 
     public int gameLoop() {
@@ -154,7 +157,10 @@ class Game {
         int bonusHeal = 30 + (difficultyLevel * 10);
         player.heal(bonusHeal);
 
-        sleep(1500);
+        sleep(2000);
+
+        // Clear nach Anzeige
+        clearScreen();
     }
 
     private boolean askForRestart() {
@@ -235,6 +241,9 @@ class Game {
 
         drawBox("NEUER RAUM", content);
         scanner.nextLine();
+
+        // Clear nach Enter
+        clearScreen();
     }
 
     private void displayRoomStatus() {
@@ -281,6 +290,9 @@ class Game {
             };
             drawBox("KAMPF", content);
             scanner.nextLine();
+
+            // Clear nach Enter
+            clearScreen();
             return;
         }
 
@@ -302,6 +314,9 @@ class Game {
 
         int choice = getValidInput(1, aliveEnemies.size());
         Enemy targetEnemy = aliveEnemies.get(choice - 1);
+
+        // Clear nach Auswahl
+        clearScreen();
 
         // Animierter Kampf
         animatedFight(player, targetEnemy);
@@ -325,8 +340,11 @@ class Game {
 
         sleep(750);
 
+        // Clear nach Header
+        clearScreen();
+
         // Kämpfer-Stats animiert anzeigen
-        animatedPrint("\n👤 " + player.getName() + ":\n", 25);
+        animatedPrint("👤 " + player.getName() + ":\n", 25);
         sleep(150);
         animatedPrint("   ❤️ HP: " + player.getHp() + "/" + player.getMaxHp() + "\n", 15);
         sleep(150);
@@ -346,12 +364,15 @@ class Game {
 
         sleep(750);
 
+        // Clear nach Stats
+        clearScreen();
+
         // Geschwindigkeit bestimmen
         boolean playerFirst = player.getAgility() >= enemy.getAgility();
         if (playerFirst) {
-            animatedPrint("\n⚡ " + player.getName() + " ist schneller und greift zuerst an!\n", 20);
+            animatedPrint("⚡ " + player.getName() + " ist schneller und greift zuerst an!\n", 20);
         } else {
-            animatedPrint("\n⚡ " + enemy.getName() + " ist schneller und greift zuerst an!\n", 20);
+            animatedPrint("⚡ " + enemy.getName() + " ist schneller und greift zuerst an!\n", 20);
         }
 
         sleep(1000);
@@ -361,19 +382,49 @@ class Game {
         while (enemy.isAlive() && player.isAlive() && rounds < 20) {
             rounds++;
 
-            animatedPrint("\n━━━━━━━━━━━━━━━━━━━━━ RUNDE " + rounds + " ━━━━━━━━━━━━━━━━━━━━━\n", 15);
+            // Clear vor jeder Runde
+            clearScreen();
+
+            // Kompakter Rundenstatus
+            System.out.println("╔══════════════════════════════════════════════════════════════════╗");
+            System.out.printf("║                           RUNDE %d                              ║%n", rounds);
+            System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+            System.out.printf("║ 👤 %s%n", getHealthBarString(player));
+            System.out.printf("║ 👹 %s%n", getHealthBarString(enemy));
+            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+
             sleep(500);
 
             if (playerFirst) {
                 animatedAttack(player, enemy);
                 if (enemy.isAlive()) {
                     sleep(750);
+
+                    // Clear vor Gegnerangriff
+                    clearScreen();
+                    System.out.println("╔══════════════════════════════════════════════════════════════════╗");
+                    System.out.printf("║                    RUNDE %d - GEGNER ANGRIFF                    ║%n", rounds);
+                    System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+                    System.out.printf("║ 👤 %s%n", getHealthBarString(player));
+                    System.out.printf("║ 👹 %s%n", getHealthBarString(enemy));
+                    System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+
                     animatedAttack(enemy, player);
                 }
             } else {
                 animatedAttack(enemy, player);
                 if (player.isAlive()) {
                     sleep(750);
+
+                    // Clear vor Spielerangriff
+                    clearScreen();
+                    System.out.println("╔══════════════════════════════════════════════════════════════════╗");
+                    System.out.printf("║                    RUNDE %d - DEIN ANGRIFF                      ║%n", rounds);
+                    System.out.println("╠══════════════════════════════════════════════════════════════════╣");
+                    System.out.printf("║ 👤 %s%n", getHealthBarString(player));
+                    System.out.printf("║ 👹 %s%n", getHealthBarString(enemy));
+                    System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+
                     animatedAttack(player, enemy);
                 }
             }
@@ -383,15 +434,17 @@ class Game {
             }
         }
 
-        // Kampf-Ende
-        sleep(500);
-        animatedPrint("\n🔥 ══════════════ KAMPF BEENDET! ══════════════\n", 25);
-        sleep(500);
+        // Clear für Kampfende
+        clearScreen();
+
+        System.out.println("╔══════════════════════════════════════════════════════════════════╗");
+        System.out.println("║                        🔥 KAMPF BEENDET! 🔥                      ║");
+        System.out.println("╚══════════════════════════════════════════════════════════════════╝");
 
         if (player.isDead()) {
-            animatedPrint("💀 " + player.getName() + " wurde besiegt!\n", 25);
+            animatedPrint("\n💀 " + player.getName() + " wurde besiegt!\n", 25);
         } else if (enemy.isDead()) {
-            animatedPrint("🎉 " + player.getName() + " hat gewonnen!\n", 25);
+            animatedPrint("\n🎉 " + player.getName() + " hat gewonnen!\n", 25);
             sleep(500);
 
             int expGain = enemy.getAp() + enemy.getMaxHp() / 10;
@@ -409,10 +462,13 @@ class Game {
         sleep(1000);
         animatedPrint("\nDrücke Enter um fortzufahren...", 15);
         scanner.nextLine();
+
+        // Clear nach Enter
+        clearScreen();
     }
 
     private void animatedAttack(Creature attacker, Creature target) {
-        animatedPrint("⚔️ " + attacker.getName() + " greift " + target.getName() + " an!\n", 20);
+        animatedPrint("\n⚔️ " + attacker.getName() + " greift " + target.getName() + " an!\n", 20);
         sleep(400);
 
         // Angriffs-Animation
@@ -434,7 +490,7 @@ class Game {
         sleep(300);
 
         // Health Bar nach Angriff
-        animatedPrint("   " + getHealthBarString(target) + "\n", 10);
+        animatedPrint("   Neuer Status: " + getHealthBarString(target) + "\n", 10);
 
         if (target.isDead()) {
             sleep(400);
@@ -498,6 +554,9 @@ class Game {
 
         drawBox("CHARAKTERWERTE", content);
         scanner.nextLine();
+
+        // Clear nach Enter
+        clearScreen();
     }
 
     private void displayGameStats() {
@@ -513,6 +572,9 @@ class Game {
 
         drawBox("SPIELSTATISTIKEN", content);
         scanner.nextLine();
+
+        // Clear nach Enter
+        clearScreen();
     }
 
     private void displayRoomCleared() {
@@ -531,6 +593,11 @@ class Game {
 
         int healAmount = Math.max(10, 25 - difficultyLevel);
         player.heal(healAmount);
+
+        sleep(2000);
+
+        // Clear nach Anzeige
+        clearScreen();
     }
 
     private void displayGameOver() {
