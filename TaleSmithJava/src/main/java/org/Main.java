@@ -1,3 +1,9 @@
+package main.java.org;
+
+import main.java.org.templates.RoomTemplate;
+import main.java.org.templates.EnemyTemplate;
+
+
 import java.util.ArrayList;
 import java.util.List;
 

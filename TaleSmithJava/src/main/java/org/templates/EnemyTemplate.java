@@ -1,4 +1,6 @@
-class EnemyTemplate {
+package main.java.org.templates;
+
+public class EnemyTemplate {
     private String name;
     private int hp;
     private int ap;

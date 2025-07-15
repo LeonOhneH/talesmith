@@ -1,3 +1,9 @@
+package main.java.org.builder;
+
+
+import main.java.org.Enemy;
+import main.java.org.templates.EnemyTemplate;
+
 class EnemyBuilder {
     private String name;
     private int hp;

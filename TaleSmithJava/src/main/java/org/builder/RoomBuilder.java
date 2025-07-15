@@ -1,7 +1,14 @@
+package main.java.org.builder;
+
+import main.java.org.Enemy;
+import main.java.org.Room;
+import main.java.org.templates.EnemyTemplate;
+import main.java.org.templates.RoomTemplate;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class RoomBuilder {
+public class RoomBuilder {
     private RoomTemplate template;
     private List<Enemy> enemies;
 
@@ -15,7 +22,7 @@ class RoomBuilder {
 
     public RoomBuilder withTemplate(RoomTemplate template, int numberOfEnemies) {
         this.template = template;
-        this.enemies = new ArrayList<>();
+        this.enemies = new ArrayList<Enemy>();
         for (int i = 0; i < numberOfEnemies; i++) {
             this.enemies.add(new EnemyBuilder().withTemplate(template.getRandomEnemyTemplate()).build());
         }

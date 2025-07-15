@@ -1,6 +1,12 @@
+package main.java.org;
+
+
+import java.util.ArrayList;
+
 class Player extends Creature {
     private int experience;
     private int level;
+    private ArrayList<Item> inventory;
 
     public Player(String name, int hp, int ap, int agility) {
         super(name, hp, ap, agility);
@@ -52,6 +58,7 @@ class Player extends Creature {
 
     @Override
     public String toString() {
+
         return super.toString() + " [Level: " + level + ", EXP: " + experience + "]";
     }
 }

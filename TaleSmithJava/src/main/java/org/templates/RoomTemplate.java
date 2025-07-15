@@ -1,7 +1,9 @@
+package main.java.org.templates;
+
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-class RoomTemplate {
+public class RoomTemplate {
     private String name;
     private List<EnemyTemplate> possibleEnemies;
     private int minEnemies;

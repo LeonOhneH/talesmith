@@ -1,8 +1,9 @@
+package main.java.org;
+
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-class Room {
+public class Room {
     private String name;
     private List<Enemy> enemies;
     private boolean cleared;

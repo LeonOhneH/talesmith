@@ -1,3 +1,5 @@
+package main.java.org;
+
 abstract class Creature {
     private String name;
     private int hp;
