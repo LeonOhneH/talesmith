@@ -35,14 +35,34 @@ class Game {
     }
 
     private void displayWelcome() {
-        System.out.println("╔══════════════════════════════════════════════════════════════╗");
-        System.out.println("║                        " + name + "                          ║");
-        System.out.println("║                                                              ║");
-        System.out.println("║              Willkommen zum großen Abenteuer!                ║");
-        System.out.println("║                                                              ║");
-        System.out.println("╚══════════════════════════════════════════════════════════════╝");
+        int minContentWidth = 60;
+        String welcome = "Willkommen zum großen Abenteuer!";
+        
+        int contentWidth = Math.max(minContentWidth,
+            Math.max(name.length(), welcome.length()));
+        
+        String horizontal = "═".repeat(contentWidth);
+        String emptyLine  = " ".repeat(contentWidth);
+        
+        System.out.println("╔" + horizontal + "╗");
+        
+        printCenteredLine(name, contentWidth);
+        System.out.println("║" + emptyLine + "║");
+        printCenteredLine(welcome, contentWidth);
+        System.out.println("║" + emptyLine + "║");
+        
+        System.out.println("╚" + horizontal + "╝");
         System.out.println();
     }
+
+    private void printCenteredLine(String text, int width) {
+        int paddingLeft  = (width - text.length()) / 2;
+        int paddingRight = width - text.length() - paddingLeft;
+        String left  = " ".repeat(paddingLeft);
+        String right = " ".repeat(paddingRight);
+        System.out.println("║" + left + text + right + "║");
+    }
+
 
     public int gameLoop() {
         while (true) {

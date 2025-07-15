@@ -26,7 +26,7 @@ public class Main {
              * Spieler und Spielinstanz erzeugen und Spiel starten
              */
             Player player = new Player("AaronDerEndbossinDerFussballmannschaft", 1111111111, 11111, 111111111);
-            Game game = new Game("Bundesliga", roomTemplates, possibleEnemysRoom0, player);
+            Game game = new Game("Die Bundesliga", roomTemplates, possibleEnemysRoom0, player);
             game.start();
         }
 }
