@@ -132,7 +132,8 @@ abstract class Creature {
 
         healthBar.append(" ").append(currentHp).append("/").append(maxHp);
 
-        System.out.println("❤️ " + creature.getName() + ": " + healthBar.toString());
+        // "Lebenspunkte" Label vor dem Health Bar
+        System.out.println("Lebenspunkte " + creature.getName() + ": " + healthBar.toString());
     }
 
     @Override
