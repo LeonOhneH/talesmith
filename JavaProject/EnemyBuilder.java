@@ -22,7 +22,6 @@ class EnemyBuilder {
         return this;
     }
 
-    // Neue Methode für Schwierigkeitsskalierung
     public EnemyBuilder scaleDifficulty(double factor) {
         this.hp = (int) (this.hp * factor);
         this.ap = (int) (this.ap * factor);
