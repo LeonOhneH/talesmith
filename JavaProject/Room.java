@@ -87,7 +87,6 @@ class Room {
                 }
             }
 
-            // Kurze Pause zwischen Runden für bessere Lesbarkeit
             if (currentEnemy.isAlive() && player.isAlive()) {
                 try {
                     Thread.sleep(1000);
@@ -102,11 +101,9 @@ class Room {
         } else if (currentEnemy.isDead()) {
             System.out.println("🎉 Du hast " + currentEnemy.getName() + " besiegt!");
 
-            // Erfahrung und mögliche Belohnung
             int expGain = currentEnemy.getAp() + currentEnemy.getMaxHp() / 10;
             System.out.println("✨ Du erhältst " + expGain + " Erfahrungspunkte!");
 
-            // Kleine Heilung nach Sieg
             int healAmount = 5;
             player.heal(healAmount);
             System.out.println("💚 Du erholst dich etwas und erhältst " + healAmount + " HP!");

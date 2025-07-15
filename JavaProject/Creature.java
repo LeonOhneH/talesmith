@@ -73,7 +73,6 @@ abstract class Creature {
 
         System.out.println("⚔️ " + getName() + " greift " + target.getName() + " an!");
 
-        // Kritischer Treffer (10% Chance)
         boolean criticalHit = Math.random() < 0.1;
         int damage = criticalHit ? (int) (getAp() * 1.5) : getAp();
 

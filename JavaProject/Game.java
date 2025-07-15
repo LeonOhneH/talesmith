@@ -21,16 +21,16 @@ class Game {
         this.totalEnemiesKilled = 0;
     }
 
-    public Game(String name, List<RoomTemplate> roomTemplates, List<EnemyTemplate> enemyTemplates) {
+    public Game(String name, List<RoomTemplate> roomTemplates, List<EnemyTemplate> enemyTemplates, Player player) {
         this();
         this.setName(name);
         this.setRoomTemplates(roomTemplates);
         this.setEnemyTemplates(enemyTemplates);
+        this.setPlayer(player);
     }
 
     public void start() {
         displayWelcome();
-        createPlayer();
         gameLoop();
     }
 
@@ -42,36 +42,6 @@ class Game {
         System.out.println("║                                                              ║");
         System.out.println("╚══════════════════════════════════════════════════════════════╝");
         System.out.println();
-    }
-
-    private void createPlayer() {
-        System.out.print("📝 Gib deinen Heldennamen ein: ");
-        String playerName = scanner.nextLine();
-
-        System.out.println("\n🎲 Wähle deine Charakterklasse:");
-        System.out.println("1. 🗡️  Krieger (HP: 120, AP: 12, Agility: 8)");
-        System.out.println("2. 🏹 Bogenschütze (HP: 80, AP: 15, Agility: 12)");
-        System.out.println("3. ⚡ Magier (HP: 60, AP: 18, Agility: 10)");
-
-        int choice = getValidInput(1, 3);
-
-        switch (choice) {
-            case 1:
-                setPlayer(new Player(playerName, 120, 12, 8));
-                System.out.println("\n⚔️ Du bist nun ein mutiger Krieger!");
-                break;
-            case 2:
-                setPlayer(new Player(playerName, 80, 15, 12));
-                System.out.println("\n🏹 Du bist nun ein geschickter Bogenschütze!");
-                break;
-            case 3:
-                setPlayer(new Player(playerName, 60, 18, 10));
-                System.out.println("\n⚡ Du bist nun ein mächtiger Magier!");
-                break;
-        }
-
-        System.out.println("🎯 " + player.getName() + " beginnt das Abenteuer!\n");
-        pause();
     }
 
     public int gameLoop() {

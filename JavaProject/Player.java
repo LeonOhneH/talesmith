@@ -41,7 +41,7 @@ class Player extends Creature {
             int agilityIncrease = 1;
 
             setMaxHp(getMaxHp() + hpIncrease);
-            setHp(getMaxHp()); // Vollständige Heilung beim Level-Up
+            setHp(getMaxHp());
             setAp(getAp() + apIncrease);
             setAgility(getAgility() + agilityIncrease);
 

@@ -32,7 +32,7 @@ class RoomTemplate {
         if (size == 0) {
             throw new IllegalStateException("Keine möglichen Gegner vorhanden!");
         }
-        // Zufälligen Index von 0 (inklusive) bis size (exklusive) erzeugen
+        
         int randomIndex = ThreadLocalRandom.current().nextInt(size);
         return this.possibleEnemies.get(randomIndex);
     }
