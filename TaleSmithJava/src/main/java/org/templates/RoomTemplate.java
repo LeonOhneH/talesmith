@@ -11,7 +11,8 @@ public class RoomTemplate {
     private int minEnemies;
     private int maxEnemies;
 
-    public RoomTemplate(String name, List<EnemyTemplate> possibleEnemies, int minEnemies, int maxEnemies, HashMap<ItemTemplate, Float> possibleDrops) {
+    public RoomTemplate(String name, List<EnemyTemplate> possibleEnemies, int minEnemies, int maxEnemies,
+            HashMap<ItemTemplate, Float> possibleDrops) {
         this.setName(name);
         this.setPossibleEnemies(possibleEnemies);
         this.setMinEnemies(minEnemies);
@@ -73,5 +74,13 @@ public class RoomTemplate {
         int adjustedMax = Math.min(maxEnemies + (difficultyLevel / 2), maxEnemies + 3);
 
         return ThreadLocalRandom.current().nextInt(adjustedMin, adjustedMax + 1);
+    }
+
+    public HashMap<ItemTemplate, Float> getPossibleDrops() {
+        return possibleDrops;
+    }
+
+    public void setPossibleDrops(HashMap<ItemTemplate, Float> possibleDrops) {
+        this.possibleDrops = possibleDrops;
     }
 }

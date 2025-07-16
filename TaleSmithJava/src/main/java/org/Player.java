@@ -1,9 +1,8 @@
 package main.java.org;
 
-
 import java.util.ArrayList;
 
-class Player extends Creature {
+public class Player extends Creature {
     private int experience;
     private int level;
     private ArrayList<Item> inventory;
@@ -12,6 +11,7 @@ class Player extends Creature {
         super(name, hp, ap, agility);
         this.experience = 0;
         this.level = 1;
+        this.inventory = new ArrayList<>();
     }
 
     public int getExperience() {
@@ -28,6 +28,18 @@ class Player extends Creature {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public ArrayList<Item> getInventory() {
+        return inventory;
+    }
+
+    public void addItem(Item item) {
+        this.inventory.add(item);
+    }
+
+    public void removeItem(Item item) {
+        this.inventory.remove(item);
     }
 
     public void gainExperience(int exp) {
@@ -50,15 +62,46 @@ class Player extends Creature {
             setHp(getMaxHp());
             setAp(getAp() + apIncrease);
             setAgility(getAgility() + agilityIncrease);
+        }
+    }
 
-            System.out.println("🎊 LEVEL UP! Du bist jetzt Level " + level + "!");
-            System.out.println("📈 HP +" + hpIncrease + ", AP +" + apIncrease + ", Agility +" + agilityIncrease);
+    // Neue Methode für UI-Layer um Level-Up Informationen zu bekommen
+    public LevelUpInfo getLastLevelUp() {
+        return new LevelUpInfo(level, 20, 2, 1);
+    }
+
+    public static class LevelUpInfo {
+        private final int newLevel;
+        private final int hpIncrease;
+        private final int apIncrease;
+        private final int agilityIncrease;
+
+        public LevelUpInfo(int newLevel, int hpIncrease, int apIncrease, int agilityIncrease) {
+            this.newLevel = newLevel;
+            this.hpIncrease = hpIncrease;
+            this.apIncrease = apIncrease;
+            this.agilityIncrease = agilityIncrease;
+        }
+
+        public int getNewLevel() {
+            return newLevel;
+        }
+
+        public int getHpIncrease() {
+            return hpIncrease;
+        }
+
+        public int getApIncrease() {
+            return apIncrease;
+        }
+
+        public int getAgilityIncrease() {
+            return agilityIncrease;
         }
     }
 
     @Override
     public String toString() {
-
-        return super.toString() + " [Level: " + level + ", EXP: " + experience + "]";
+        return super.toString() + " [Level: " + level + ", EXP: " + experience + ", Items: " + inventory.size() + "]";
     }
 }

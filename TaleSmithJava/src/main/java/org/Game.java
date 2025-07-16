@@ -1,18 +1,17 @@
 package main.java.org;
 
-
 import main.java.org.builder.RoomBuilder;
+import main.java.org.service.CombatService;
+import main.java.org.service.CombatService.*;
+import main.java.org.service.DropService;
 import main.java.org.templates.EnemyTemplate;
 import main.java.org.templates.RoomTemplate;
-
-
+import main.java.org.templates.WeaponTypeE;
+import main.java.org.ui.GameRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
-
-
 
 class Game {
     private String name;
@@ -26,80 +25,26 @@ class Game {
     private int roomsCleared;
     private int totalEnemiesKilled;
 
-    private Scanner scanner;
     private Random random;
+    private GameRenderer renderer;
+    private CombatService combatService;
+    private DropService dropService;
 
-    public Game() {
-        this.scanner = new Scanner(System.in);
+    public Game(GameRenderer renderer) {
+        this.renderer = renderer;
+        this.combatService = new CombatService();
+        this.dropService = new DropService();
         this.random = new Random();
         this.roomsCleared = 0;
         this.totalEnemiesKilled = 0;
         this.difficultyLevel = 1;
     }
 
-    public Game(String name, List<RoomTemplate> roomTemplates, Player player) {
-        this();
+    public Game(String name, List<RoomTemplate> roomTemplates, Player player, GameRenderer renderer) {
+        this(renderer);
         this.setName(name);
         this.setRoomTemplates(roomTemplates);
         this.setPlayer(player);
-    }
-
-    private void clearScreen() {
-        // ANSI escape codes für das Löschen des Bildschirms
-        System.out.print("\033[2J\033[H");
-        System.out.flush();
-    }
-
-    private void sleep(int milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    private void animatedPrint(String text, int delay) {
-        for (char c : text.toCharArray()) {
-            System.out.print(c);
-            System.out.flush();
-            sleep(delay);
-        }
-    }
-
-    private void drawBox(String title, String[] content) {
-        clearScreen();
-
-        int maxWidth = 70;
-        String horizontal = "═".repeat(maxWidth - 2);
-
-        System.out.println("╔" + horizontal + "╗");
-
-        // Titel zentrieren
-        if (title != null && !title.isEmpty()) {
-            int padding = (maxWidth - 2 - title.length()) / 2;
-            String titleLine = " ".repeat(padding) + title + " ".repeat(maxWidth - 2 - padding - title.length());
-            System.out.println("║" + titleLine + "║");
-            System.out.println("╠" + horizontal + "╣");
-        }
-
-        // Content
-        for (String line : content) {
-            int padding = maxWidth - 2 - line.replaceAll("[\u2600-\u27BF]", "").length();
-            if (padding < 0)
-                padding = 0;
-            String contentLine = line + " ".repeat(padding);
-            if (contentLine.length() > maxWidth - 2) {
-                contentLine = contentLine.substring(0, maxWidth - 2);
-            }
-            System.out.println("║" + contentLine + "║");
-        }
-
-        // Fülle den Rest bis zur gewünschten Höhe (ca. 20 Zeilen)
-        for (int i = content.length; i < 15; i++) {
-            System.out.println("║" + " ".repeat(maxWidth - 2) + "║");
-        }
-
-        System.out.println("╚" + horizontal + "╝");
     }
 
     public void start() {
@@ -121,11 +66,9 @@ class Game {
                 "Drücke Enter zum Starten..."
         };
 
-        drawBox(name, welcomeContent);
-        scanner.nextLine();
-
-        // Clear nach Enter
-        clearScreen();
+        renderer.drawBox(name, welcomeContent);
+        renderer.getInput();
+        renderer.clearScreen();
     }
 
     public int gameLoop() {
@@ -140,7 +83,7 @@ class Game {
                 }
 
                 displayRoomCleared();
-                sleep(1000);
+                renderer.sleep(1000);
             } else {
                 displayGameOver();
 
@@ -166,15 +109,13 @@ class Game {
                 ""
         };
 
-        drawBox("LEVEL UP!", content);
+        renderer.drawBox("LEVEL UP!", content);
 
         int bonusHeal = 30 + (difficultyLevel * 10);
         player.heal(bonusHeal);
 
-        sleep(2000);
-
-        // Clear nach Anzeige
-        clearScreen();
+        renderer.sleep(2000);
+        renderer.clearScreen();
     }
 
     private boolean askForRestart() {
@@ -191,9 +132,9 @@ class Game {
                 "(j/n): "
         };
 
-        drawBox("SPIEL BEENDET", content);
+        renderer.drawBox("SPIEL BEENDET", content);
 
-        String input = scanner.nextLine().toLowerCase();
+        String input = renderer.getInput().toLowerCase();
         return input.equals("j") || input.equals("ja") || input.equals("y") || input.equals("yes");
     }
 
@@ -208,6 +149,196 @@ class Game {
         displayWelcome();
     }
 
+    private void handleFight() {
+        List<Enemy> aliveEnemies = currentRoom.getAliveEnemies();
+        if (aliveEnemies.isEmpty()) {
+            String[] content = {
+                    "",
+                    "🎉 Alle Gegner wurden bereits besiegt!",
+                    "",
+                    "Drücke Enter um fortzufahren..."
+            };
+            renderer.drawBox("KAMPF", content);
+            renderer.getInput();
+            renderer.clearScreen();
+            return;
+        }
+
+        // Gegner auswählen
+        List<String> content = new ArrayList<>();
+        content.add("");
+        content.add("⚔️ Welchen Gegner möchtest du angreifen?");
+        content.add("");
+
+        for (int i = 0; i < aliveEnemies.size(); i++) {
+            Enemy enemy = aliveEnemies.get(i);
+            content.add((i + 1) + ". " + enemy.getName() + " (HP:" + enemy.getHp() + " AP:" + enemy.getAp() + ")");
+        }
+
+        content.add("");
+        content.add("Deine Wahl: ");
+
+        renderer.drawBox("GEGNER WÄHLEN", content.toArray(new String[0]));
+
+        int choice = renderer.getValidInput(1, aliveEnemies.size());
+        Enemy targetEnemy = aliveEnemies.get(choice - 1);
+
+        renderer.clearScreen();
+
+        // Kampf über CombatService ausführen
+        executeCombatWithAnimation(player, targetEnemy);
+
+        if (targetEnemy.isDead()) {
+            totalEnemiesKilled++;
+
+            // Level-Up Behandlung
+            int oldLevel = player.getLevel();
+            int expGain = combatService.calculateExperienceGain(targetEnemy);
+            player.gainExperience(expGain);
+
+            if (player.getLevel() > oldLevel) {
+                displayPlayerLevelUp(oldLevel, player.getLevel());
+            }
+
+            // HINZUGEFÜGT: Drop-System
+            handleEnemyDrops(targetEnemy);
+
+            int healAmount = 5;
+            player.heal(healAmount);
+
+            currentRoom.checkCleared();
+        }
+    }
+
+    private void handleEnemyDrops(Enemy enemy) {
+        // 1. Drops aus dem Raum
+        List<Item> roomDrops = currentRoom.getDrops();
+        if (roomDrops != null && !roomDrops.isEmpty() && random.nextFloat() < 0.15f) { // 15% Chance
+            Item droppedItem = roomDrops.get(random.nextInt(roomDrops.size()));
+            player.addItem(droppedItem);
+            displayItemFound(droppedItem);
+            return; // Wenn ein Raum-Drop erfolgt, keinen Gegner-Drop mehr
+        }
+
+        // 2. Gegnerspezifische Drops vom Template mit dem DropService
+        if (enemy.getTemplate() != null && enemy.getTemplate().getPossibleDrops() != null) {
+            // Hier benutzen wir den dropService um Items zu generieren
+            List<Item> enemyDrops = dropService.generateDrops(enemy.getTemplate().getPossibleDrops());
+
+            if (!enemyDrops.isEmpty()) {
+                // Nehme einen zufälligen Drop aus der Liste
+                Item droppedItem = enemyDrops.get(random.nextInt(enemyDrops.size()));
+                player.addItem(droppedItem);
+                displayItemFound(droppedItem);
+                return;
+            }
+        }
+
+        // 3. Fallback: Generisches Item, wenn kein Template-Drop verfügbar
+        if (random.nextFloat() < 0.3f) { // 30% Chance
+            // Erzeuge einen zufälligen Gegenstand für den Gegner
+            Weapon droppedWeapon = new Weapon(
+                    "Waffe von " + enemy.getName(),
+                    "Erbeutet von " + enemy.getName(),
+                    5 + random.nextInt(10), // Zufälliger Schaden 5-15
+                    WeaponTypeE.Schlag // Standard-Typ
+            );
+
+            player.addItem(droppedWeapon);
+            displayItemFound(droppedWeapon);
+        }
+    }
+
+    private void displayItemFound(Item item) {
+        String itemType = item instanceof Weapon ? "⚔️ Waffe" : "🧪 Gegenstand";
+
+        String[] content = {
+                "",
+                "🎁 GEGENSTAND GEFUNDEN! 🎁",
+                "",
+                itemType + ": " + item.getName(),
+                "",
+                "📝 " + item.getDescription(),
+                "",
+                "✅ Zum Inventar hinzugefügt!",
+                "",
+                "Drücke Enter um fortzufahren..."
+        };
+
+        renderer.drawBox("LOOT!", content);
+        renderer.getInput();
+        renderer.clearScreen();
+    }
+
+    private void displayPlayerStats() {
+        // Berechne Gesamtangriffskraft mit bester Waffe
+        int weaponDamage = getBestWeaponDamage();
+        int totalAP = player.getAp() + weaponDamage;
+
+        String[] content = {
+                "",
+                "👤 " + player.getName(),
+                "",
+                getHealthBarString(player),
+                "",
+                "⚔️ Angriffskraft: " + player.getAp() + (weaponDamage > 0 ? " + " + weaponDamage + " (Waffe)" : ""),
+                "💪 Gesamt-AP: " + totalAP,
+                "⚡ Geschwindigkeit: " + player.getAgility(),
+                "🎯 Level: " + player.getLevel(),
+                "✨ Erfahrung: " + player.getExperience(),
+                "🎒 Inventar: " + player.getInventory().size() + " Gegenstände",
+                "",
+                "Drücke Enter um zurückzukehren..."
+        };
+
+        renderer.drawBox("CHARAKTERWERTE", content);
+        renderer.getInput();
+        renderer.clearScreen();
+    }
+
+    private int getBestWeaponDamage() {
+        int maxDamage = 0;
+        for (Item item : player.getInventory()) {
+            if (item instanceof Weapon) {
+                Weapon weapon = (Weapon) item;
+                if (weapon.getDamage() > maxDamage) {
+                    maxDamage = weapon.getDamage();
+                }
+            }
+        }
+        return maxDamage;
+    }
+
+    // NEUE METHODE: Inventar anzeigen
+    private void displayInventory() {
+        List<String> content = new ArrayList<>();
+        content.add("");
+        content.add("🎒 INVENTAR");
+        content.add("");
+
+        if (player.getInventory().isEmpty()) {
+            content.add("📭 Inventar ist leer!");
+        } else {
+            for (int i = 0; i < player.getInventory().size(); i++) {
+                Item item = player.getInventory().get(i);
+                String itemIcon = item instanceof Weapon ? "⚔️" : "🧪";
+                content.add((i + 1) + ". " + itemIcon + " " + item.getName());
+
+                if (item instanceof Weapon) {
+                    Weapon weapon = (Weapon) item;
+                    content.add("   └ Schaden: +" + weapon.getDamage());
+                }
+            }
+        }
+
+        content.add("");
+        content.add("Drücke Enter um zurückzukehren...");
+
+        renderer.drawBox("INVENTAR", content.toArray(new String[0]));
+        renderer.getInput();
+        renderer.clearScreen();
+    }
+
     public int roomLoop() {
         generateNewRoom();
         displayRoomEntry();
@@ -218,7 +349,7 @@ class Game {
             }
 
             displayRoomStatus();
-            int choice = getValidInput(1, 4);
+            int choice = renderer.getValidInput(1, 5); // GEÄNDERT: 5 Optionen statt 4
 
             switch (choice) {
                 case 1:
@@ -228,9 +359,12 @@ class Game {
                     displayPlayerStats();
                     break;
                 case 3:
-                    displayGameStats();
+                    displayInventory(); // HINZUGEFÜGT
                     break;
                 case 4:
+                    displayGameStats();
+                    break;
+                case 5:
                     if (confirmQuit())
                         return 1;
                     break;
@@ -253,11 +387,9 @@ class Game {
                 "Drücke Enter um fortzufahren..."
         };
 
-        drawBox("NEUER RAUM", content);
-        scanner.nextLine();
-
-        // Clear nach Enter
-        clearScreen();
+        renderer.drawBox("NEUER RAUM", content);
+        renderer.getInput();
+        renderer.clearScreen();
     }
 
     private void displayRoomStatus() {
@@ -286,232 +418,166 @@ class Game {
 
         content.add("");
         content.add("⚔️ Was möchtest du tun?");
-        content.add("1. 🗡️ Kämpfen  2. 📊 Stats  3. 📈 Info  4. 🚪 Beenden");
+        content.add("1. 🗡️ Kämpfen  2. 📊 Stats  3. 🎒 Inventar  4. 📈 Info  5. 🚪 Beenden"); // GEÄNDERT
         content.add("");
         content.add("Deine Wahl: ");
 
-        drawBox("AKTUELLER RAUM", content.toArray(new String[0]));
+        renderer.drawBox("AKTUELLER RAUM", content.toArray(new String[0]));
     }
 
-    private void handleFight() {
-        List<Enemy> aliveEnemies = currentRoom.getAliveEnemies();
-        if (aliveEnemies.isEmpty()) {
-            String[] content = {
-                    "",
-                    "🎉 Alle Gegner wurden bereits besiegt!",
-                    "",
-                    "Drücke Enter um fortzufahren..."
-            };
-            drawBox("KAMPF", content);
-            scanner.nextLine();
+    private void executeCombatWithAnimation(Player player, Enemy enemy) {
+        // Kampf-Header anzeigen
+        renderer.clearScreen();
 
-            // Clear nach Enter
-            clearScreen();
-            return;
-        }
+        String[] headerContent = {
+                "",
+                "⚔️ KAMPF BEGINNT! ⚔️",
+                "",
+                player.getName() + " VS " + enemy.getName(),
+                ""
+        };
+        renderer.drawBox("KAMPF", headerContent);
+        renderer.sleep(750);
 
-        // Gegner auswählen
-        List<String> content = new ArrayList<>();
-        content.add("");
-        content.add("⚔️ Welchen Gegner möchtest du angreifen?");
-        content.add("");
+        // Angriffsreihenfolge bestimmen und anzeigen
+        boolean playerFirst = combatService.determineAttackOrder(player, enemy);
+        showCombatStats(player, enemy, playerFirst);
 
-        for (int i = 0; i < aliveEnemies.size(); i++) {
-            Enemy enemy = aliveEnemies.get(i);
-            content.add((i + 1) + ". " + enemy.getName() + " (HP:" + enemy.getHp() + " AP:" + enemy.getAp() + ")");
-        }
+        // Kampf ausführen
+        CombatResult result = combatService.executeCombat(player, enemy);
 
-        content.add("");
-        content.add("Deine Wahl: ");
+        // Kampfverlauf anzeigen
+        showCombatRounds(result.getAttackHistory());
 
-        drawBox("GEGNER WÄHLEN", content.toArray(new String[0]));
-
-        int choice = getValidInput(1, aliveEnemies.size());
-        Enemy targetEnemy = aliveEnemies.get(choice - 1);
-
-        // Clear nach Auswahl
-        clearScreen();
-
-        // Animierter Kampf
-        animatedFight(player, targetEnemy);
-
-        if (targetEnemy.isDead()) {
-            totalEnemiesKilled++;
-        }
+        // Kampfende anzeigen
+        showCombatResult(result, player, enemy);
     }
 
-    private void animatedFight(Player player, Enemy enemy) {
-        clearScreen();
+    private void showCombatRounds(List<CombatService.AttackResult> attackHistory) {
+        renderer.clearScreen();
 
-        // Kampf-Header
-        System.out.println("╔══════════════════════════════════════════════════════════════════╗");
-        System.out.println("║                        ⚔️ KAMPF BEGINNT! ⚔️                      ║");
-        System.out.println("╠══════════════════════════════════════════════════════════════════╣");
-        System.out.printf("║  %s VS %s%n",
-                String.format("%-30s", player.getName()),
-                String.format("%30s", enemy.getName()));
-        System.out.println("╚══════════════════════════════════════════════════════════════════╝");
+        // Überschrift
+        renderer.animatedPrint("⚔️ KAMPFVERLAUF ⚔️\n\n", 20);
+        renderer.sleep(500);
 
-        sleep(750);
+        // Zeige maximal 6 Angriffe an (um nicht zu lang zu werden)
+        int maxAttacks = Math.min(attackHistory.size(), 6);
 
-        // Clear nach Header
-        clearScreen();
+        for (int i = 0; i < maxAttacks; i++) {
+            CombatService.AttackResult attack = attackHistory.get(i);
 
-        // Kämpfer-Stats animiert anzeigen
-        animatedPrint("👤 " + player.getName() + ":\n", 25);
-        sleep(150);
-        animatedPrint("   ❤️ HP: " + player.getHp() + "/" + player.getMaxHp() + "\n", 15);
-        sleep(150);
-        animatedPrint("   ⚔️ AP: " + player.getAp() + "\n", 15);
-        sleep(150);
-        animatedPrint("   ⚡ Speed: " + player.getAgility() + "\n", 15);
+            // Formatiere Angriffsnachricht
+            StringBuilder message = new StringBuilder();
 
-        sleep(400);
+            // Kritischer Treffer?
+            String criticalText = attack.isCriticalHit() ? "⚡ KRITISCH! ⚡ " : "";
 
-        animatedPrint("\n👹 " + enemy.getName() + ":\n", 25);
-        sleep(150);
-        animatedPrint("   ❤️ HP: " + enemy.getHp() + "/" + enemy.getMaxHp() + "\n", 15);
-        sleep(150);
-        animatedPrint("   ⚔️ AP: " + enemy.getAp() + "\n", 15);
-        sleep(150);
-        animatedPrint("   ⚡ Speed: " + enemy.getAgility() + "\n", 15);
+            message.append(criticalText)
+                    .append(attack.getAttackerName())
+                    .append(" greift ")
+                    .append(attack.getTargetName())
+                    .append(" an und verursacht ")
+                    .append(attack.getDamage())
+                    .append(" Schaden!");
 
-        sleep(750);
+            // Zeige HP-Veränderung
+            message.append(" (")
+                    .append(attack.getOldHp())
+                    .append(" → ")
+                    .append(attack.getNewHp())
+                    .append(" HP)");
 
-        // Clear nach Stats
-        clearScreen();
+            // Ist das Ziel gestorben?
+            if (attack.isTargetDied()) {
+                message.append("\n💀 ")
+                        .append(attack.getTargetName())
+                        .append(" wurde besiegt!");
+            }
 
-        // Geschwindigkeit bestimmen
-        boolean playerFirst = player.getAgility() >= enemy.getAgility();
+            // Animiere den Text
+            renderer.animatedPrint(message.toString() + "\n\n", 15);
+            renderer.sleep(500);
+        }
+
+        // Falls mehr als 6 Angriffe, zeige zusammenfassenden Text
+        if (attackHistory.size() > 6) {
+            renderer.animatedPrint("...\n(Der Kampf geht noch " + (attackHistory.size() - 6) +
+                    " weitere Züge)\n\n", 15);
+        }
+
+        renderer.animatedPrint("Drücke Enter um fortzufahren...", 10);
+        renderer.getInput();
+    }
+
+    private void showCombatStats(Player player, Enemy enemy, boolean playerFirst) {
+        renderer.clearScreen();
+        renderer.animatedPrint("👤 " + player.getName() + ":\n", 25);
+        renderer.sleep(150);
+        renderer.animatedPrint("   ❤️ HP: " + player.getHp() + "/" + player.getMaxHp() + "\n", 15);
+        renderer.sleep(150);
+        renderer.animatedPrint("   ⚔️ AP: " + player.getAp() + "\n", 15);
+        renderer.sleep(150);
+        renderer.animatedPrint("   ⚡ Speed: " + player.getAgility() + "\n", 15);
+
+        renderer.sleep(400);
+
+        renderer.animatedPrint("\n👹 " + enemy.getName() + ":\n", 25);
+        renderer.sleep(150);
+        renderer.animatedPrint("   ❤️ HP: " + enemy.getHp() + "/" + enemy.getMaxHp() + "\n", 15);
+        renderer.sleep(150);
+        renderer.animatedPrint("   ⚔️ AP: " + enemy.getAp() + "\n", 15);
+        renderer.sleep(150);
+        renderer.animatedPrint("   ⚡ Speed: " + enemy.getAgility() + "\n", 15);
+
+        renderer.sleep(750);
+        renderer.clearScreen();
+
+        // KORRIGIERT: playerFirst Parameter verwenden statt result
         if (playerFirst) {
-            animatedPrint("⚡ " + player.getName() + " ist schneller und greift zuerst an!\n", 20);
+            renderer.animatedPrint("⚡ " + player.getName() + " ist schneller und greift zuerst an!\n", 20);
         } else {
-            animatedPrint("⚡ " + enemy.getName() + " ist schneller und greift zuerst an!\n", 20);
+            renderer.animatedPrint("⚡ " + enemy.getName() + " ist schneller und greift zuerst an!\n", 20);
         }
 
-        sleep(1000);
-
-        // Kampf-Schleife
-        int rounds = 0;
-        while (enemy.isAlive() && player.isAlive() && rounds < 20) {
-            rounds++;
-
-            // Clear vor jeder Runde
-            clearScreen();
-
-            // Kompakter Rundenstatus
-            System.out.println("╔══════════════════════════════════════════════════════════════════╗");
-            System.out.printf("║                           RUNDE %d                              ║%n", rounds);
-            System.out.println("╠══════════════════════════════════════════════════════════════════╣");
-            System.out.printf("║ 👤 %s%n", getHealthBarString(player));
-            System.out.printf("║ 👹 %s%n", getHealthBarString(enemy));
-            System.out.println("╚══════════════════════════════════════════════════════════════════╝");
-
-            sleep(500);
-
-            if (playerFirst) {
-                animatedAttack(player, enemy);
-                if (enemy.isAlive()) {
-                    sleep(750);
-
-                    // Clear vor Gegnerangriff
-                    clearScreen();
-                    System.out.println("╔══════════════════════════════════════════════════════════════════╗");
-                    System.out.printf("║                    RUNDE %d - GEGNER ANGRIFF                    ║%n", rounds);
-                    System.out.println("╠══════════════════════════════════════════════════════════════════╣");
-                    System.out.printf("║ 👤 %s%n", getHealthBarString(player));
-                    System.out.printf("║ 👹 %s%n", getHealthBarString(enemy));
-                    System.out.println("╚══════════════════════════════════════════════════════════════════╝");
-
-                    animatedAttack(enemy, player);
-                }
-            } else {
-                animatedAttack(enemy, player);
-                if (player.isAlive()) {
-                    sleep(750);
-
-                    // Clear vor Spielerangriff
-                    clearScreen();
-                    System.out.println("╔══════════════════════════════════════════════════════════════════╗");
-                    System.out.printf("║                    RUNDE %d - DEIN ANGRIFF                      ║%n", rounds);
-                    System.out.println("╠══════════════════════════════════════════════════════════════════╣");
-                    System.out.printf("║ 👤 %s%n", getHealthBarString(player));
-                    System.out.printf("║ 👹 %s%n", getHealthBarString(enemy));
-                    System.out.println("╚══════════════════════════════════════════════════════════════════╝");
-
-                    animatedAttack(player, enemy);
-                }
-            }
-
-            if (enemy.isAlive() && player.isAlive()) {
-                sleep(1000);
-            }
-        }
-
-        // Clear für Kampfende
-        clearScreen();
-
-        System.out.println("╔══════════════════════════════════════════════════════════════════╗");
-        System.out.println("║                        🔥 KAMPF BEENDET! 🔥                      ║");
-        System.out.println("╚══════════════════════════════════════════════════════════════════╝");
-
-        if (player.isDead()) {
-            animatedPrint("\n💀 " + player.getName() + " wurde besiegt!\n", 25);
-        } else if (enemy.isDead()) {
-            animatedPrint("\n🎉 " + player.getName() + " hat gewonnen!\n", 25);
-            sleep(500);
-
-            int expGain = enemy.getAp() + enemy.getMaxHp() / 10;
-            animatedPrint("✨ Du erhältst " + expGain + " Erfahrungspunkte!\n", 15);
-            player.gainExperience(expGain);
-
-            sleep(500);
-            int healAmount = 5;
-            player.heal(healAmount);
-            animatedPrint("💚 Du erholst dich: +" + healAmount + " HP!\n", 15);
-
-            currentRoom.checkCleared();
-        }
-
-        sleep(1000);
-        animatedPrint("\nDrücke Enter um fortzufahren...", 15);
-        scanner.nextLine();
-
-        // Clear nach Enter
-        clearScreen();
+        renderer.sleep(1000);
     }
 
-    private void animatedAttack(Creature attacker, Creature target) {
-        animatedPrint("\n⚔️ " + attacker.getName() + " greift " + target.getName() + " an!\n", 20);
-        sleep(400);
+    private void showCombatResult(CombatResult result, Player player, Enemy enemy) {
+        renderer.clearScreen();
 
-        // Angriffs-Animation
-        animatedPrint("   💪 Angriffskraft: " + attacker.getAp() + "\n", 15);
-        sleep(250);
+        String[] content = new String[10];
+        content[0] = "";
+        content[1] = "🔥 KAMPF BEENDET! 🔥";
+        content[2] = "";
 
-        boolean criticalHit = Math.random() < 0.1;
-        int damage = criticalHit ? (int) (attacker.getAp() * 1.5) : attacker.getAp();
-
-        if (criticalHit) {
-            animatedPrint("   💥 KRITISCHER TREFFER! ", 25);
-            sleep(250);
-            animatedPrint("Schaden: " + damage + "\n", 20);
-        } else {
-            animatedPrint("   🗡️ Schaden verursacht: " + damage + "\n", 20);
+        switch (result.getOutcome()) {
+            case PLAYER_DEFEATED:
+                content[3] = "💀 " + player.getName() + " wurde besiegt!";
+                content[4] = "Das Abenteuer endet hier...";
+                content[5] = "";
+                content[6] = "";
+                break;
+            case ENEMY_DEFEATED:
+                content[3] = "🎉 " + player.getName() + " hat gewonnen!";
+                content[4] = "🏆 Sieg nach " + result.getRounds() + " Runden!";
+                content[5] = "✨ Du erhältst Erfahrungspunkte!";
+                content[6] = "💚 Du erholst dich etwas!";
+                break;
+            case TIME_LIMIT:
+                content[3] = "⏰ Kampf nach " + result.getRounds() + " Runden beendet!";
+                content[4] = "(Zeitlimit erreicht)";
+                content[5] = "";
+                content[6] = "";
+                break;
         }
 
-        target.setHp(target.getHp() - damage);
-        sleep(300);
+        content[7] = "";
+        content[8] = "Drücke Enter um fortzufahren...";
+        content[9] = "";
 
-        // Health Bar nach Angriff
-        animatedPrint("   Neuer Status: " + getHealthBarString(target) + "\n", 10);
-
-        if (target.isDead()) {
-            sleep(400);
-            animatedPrint("   💀 " + target.getName() + " wurde besiegt!\n", 25);
-        }
-
-        sleep(250);
+        renderer.drawBox("KAMPFERGEBNIS", content);
+        renderer.getInput();
+        renderer.clearScreen();
     }
 
     private String getHealthBarString(Creature creature) {
@@ -551,28 +617,6 @@ class Game {
         return healthBar.toString();
     }
 
-    private void displayPlayerStats() {
-        String[] content = {
-                "",
-                "👤 " + player.getName(),
-                "",
-                getHealthBarString(player),
-                "",
-                "⚔️ Angriffskraft: " + player.getAp(),
-                "⚡ Geschwindigkeit: " + player.getAgility(),
-                "🎯 Level: " + player.getLevel(),
-                "✨ Erfahrung: " + player.getExperience(),
-                "",
-                "Drücke Enter um zurückzukehren..."
-        };
-
-        drawBox("CHARAKTERWERTE", content);
-        scanner.nextLine();
-
-        // Clear nach Enter
-        clearScreen();
-    }
-
     private void displayGameStats() {
         String[] content = {
                 "",
@@ -584,11 +628,9 @@ class Game {
                 "Drücke Enter um zurückzukehren..."
         };
 
-        drawBox("SPIELSTATISTIKEN", content);
-        scanner.nextLine();
-
-        // Clear nach Enter
-        clearScreen();
+        renderer.drawBox("SPIELSTATISTIKEN", content);
+        renderer.getInput();
+        renderer.clearScreen();
     }
 
     private void displayRoomCleared() {
@@ -603,15 +645,13 @@ class Game {
                 "Bereit für den nächsten Raum?"
         };
 
-        drawBox("SIEG!", content);
+        renderer.drawBox("SIEG!", content);
 
         int healAmount = Math.max(10, 25 - difficultyLevel);
         player.heal(healAmount);
 
-        sleep(2000);
-
-        // Clear nach Anzeige
-        clearScreen();
+        renderer.sleep(2000);
+        renderer.clearScreen();
     }
 
     private void displayGameOver() {
@@ -642,7 +682,7 @@ class Game {
                 "🎖️ " + rating
         };
 
-        drawBox("SPIEL BEENDET", content);
+        renderer.drawBox("SPIEL BEENDET", content);
     }
 
     private boolean confirmQuit() {
@@ -653,24 +693,10 @@ class Game {
                 "(j/n): "
         };
 
-        drawBox("SPIEL BEENDEN?", content);
+        renderer.drawBox("SPIEL BEENDEN?", content);
 
-        String input = scanner.nextLine().toLowerCase();
+        String input = renderer.getInput().toLowerCase();
         return input.equals("j") || input.equals("ja");
-    }
-
-    private int getValidInput(int min, int max) {
-        while (true) {
-            try {
-                int input = Integer.parseInt(scanner.nextLine());
-                if (input >= min && input <= max) {
-                    return input;
-                }
-                System.out.print("❌ Ungültige Eingabe (" + min + "-" + max + "): ");
-            } catch (NumberFormatException e) {
-                System.out.print("❌ Bitte gib eine Zahl ein: ");
-            }
-        }
     }
 
     public void generateNewRoom() {
@@ -679,11 +705,10 @@ class Game {
                 .withTemplate(template)
                 .withDifficultyLevel(difficultyLevel)
                 .generateEnemies()
-                .build()
-        );
+                .build());
     }
 
-    // ...existing code... (getter und setter bleiben unverändert)
+    // Getter und Setter
     public String getName() {
         return name;
     }
@@ -726,5 +751,25 @@ class Game {
 
     public int getDifficultyLevel() {
         return difficultyLevel;
+    }
+
+    private void displayPlayerLevelUp(int oldLevel, int newLevel) {
+        String[] content = {
+                "",
+                "🎊 LEVEL UP! 🎊",
+                "",
+                "Level " + oldLevel + " → Level " + newLevel,
+                "",
+                "📈 Statusverbesserungen:",
+                "❤️ HP +20 (vollständig geheilt)",
+                "⚔️ AP +2",
+                "⚡ Agility +1",
+                "",
+                "Drücke Enter um fortzufahren..."
+        };
+
+        renderer.drawBox("LEVEL UP!", content);
+        renderer.getInput();
+        renderer.clearScreen();
     }
 }

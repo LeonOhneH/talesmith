@@ -1,9 +1,8 @@
 package main.java.org;
 
-
 import main.java.org.templates.WeaponTypeE;
 
-public class Weapon extends Item{
+public class Weapon extends Item {
     int damage;
     WeaponTypeE type;
 
@@ -27,9 +26,5 @@ public class Weapon extends Item{
 
     public void setType(WeaponTypeE type) {
         this.type = type;
-    }
-
-    public void attack(Creature target) {
-
     }
 }

@@ -1,6 +1,6 @@
 package main.java.org;
 
-abstract class Creature {
+public abstract class Creature {
     private String name;
     private int hp;
     private int maxHp;
@@ -69,74 +69,15 @@ abstract class Creature {
         }
     }
 
-    public void attack(Creature target) {
-        if (target == null || this.isDead())
-            return;
+    // ENTFERNT oder DEPRECATED: Die alte attack Methode
+    /*
+     * public void attack(Creature target) {
+     * // Diese Methode wird nicht mehr verwendet - CombatService übernimmt das
+     * }
+     */
 
-        System.out.println("⚔️ " + getName() + " greift " + target.getName() + " an!");
-        System.out.println("   💪 Angriffskraft: " + getAp());
-
-        boolean criticalHit = Math.random() < 0.1;
-        int damage = criticalHit ? (int) (getAp() * 1.5) : getAp();
-
-        target.setHp(target.getHp() - damage);
-
-        if (criticalHit) {
-            System.out.println("💥 KRITISCHER TREFFER! Schaden: " + damage);
-        } else {
-            System.out.println("🗡️ Schaden verursacht: " + damage);
-        }
-
-        // Health Bar nach Angriff anzeigen
-        displaySimpleHealthBar(target);
-
-        if (target.isDead()) {
-            System.out.println("💀 " + target.getName() + " wurde besiegt!");
-        }
-        System.out.println();
-    }
-
-    private void displaySimpleHealthBar(Creature creature) {
-        int maxHp = creature.getMaxHp();
-        int currentHp = creature.getHp();
-
-        double healthPercent = (double) currentHp / maxHp;
-
-        // Bestimme Icon basierend auf HP-Prozentsatz
-        String healthIcon;
-        if (healthPercent > 0.75) {
-            healthIcon = "💚";
-        } else if (healthPercent > 0.5) {
-            healthIcon = "💛";
-        } else if (healthPercent > 0.25) {
-            healthIcon = "🧡";
-        } else if (healthPercent > 0) {
-            healthIcon = "❤️";
-        } else {
-            healthIcon = "💀";
-        }
-
-        // Kompakte Health Bar (10 Zeichen)
-        int barWidth = 10;
-        int filledBars = (int) (healthPercent * barWidth);
-        int emptyBars = barWidth - filledBars;
-
-        StringBuilder healthBar = new StringBuilder();
-        healthBar.append(healthIcon).append(" ");
-
-        for (int i = 0; i < filledBars; i++) {
-            healthBar.append("█");
-        }
-
-        for (int i = 0; i < emptyBars; i++) {
-            healthBar.append("░");
-        }
-
-        healthBar.append(" ").append(currentHp).append("/").append(maxHp);
-
-        // "Lebenspunkte" Label vor dem Health Bar
-        System.out.println("Lebenspunkte " + creature.getName() + ": " + healthBar.toString());
-    }
+    // Vereinfachte displaySimpleHealthBar für interne Nutzung (falls noch benötigt)
+    // oder komplett entfernen, da Game.java seine eigene getHealthBarString hat
 
     @Override
     public String toString() {

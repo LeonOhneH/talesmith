@@ -1,20 +1,21 @@
 package main.java.org.builder;
 
-
 import main.java.org.Enemy;
 import main.java.org.templates.EnemyTemplate;
 
-class EnemyBuilder {
+public class EnemyBuilder {
     private String name;
     private int hp;
     private int ap;
     private int agility;
+    private EnemyTemplate template;
 
     public EnemyBuilder(EnemyTemplate template) {
         this.name = template.getName();
         this.hp = template.getHp();
         this.ap = template.getAp();
         this.agility = template.getAgility();
+        this.template = template;
     }
 
     public EnemyBuilder() {
@@ -25,6 +26,7 @@ class EnemyBuilder {
         this.hp = template.getHp();
         this.ap = template.getAp();
         this.agility = template.getAgility();
+        this.template = template;
         return this;
     }
 
@@ -36,6 +38,6 @@ class EnemyBuilder {
     }
 
     public Enemy build() {
-        return new Enemy(name, hp, ap, agility);
+        return new Enemy(name, hp, ap, agility, template);
     }
 }

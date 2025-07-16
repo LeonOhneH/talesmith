@@ -17,8 +17,8 @@ public class EnemyTemplate {
         this.possibleDrops = possibleDrops;
     }
 
-    public EnemyTemplate(){}
-
+    public EnemyTemplate() {
+    }
 
     public String getName() {
         return name;
@@ -50,5 +50,13 @@ public class EnemyTemplate {
 
     public void setAgility(int agility) {
         this.agility = agility;
+    }
+
+    public HashMap<ItemTemplate, Float> getPossibleDrops() {
+        return possibleDrops;
+    }
+
+    public void setPossibleDrops(HashMap<ItemTemplate, Float> possibleDrops) {
+        this.possibleDrops = possibleDrops;
     }
 }
