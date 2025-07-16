@@ -10,30 +10,6 @@ import java.util.List;
 
 public class Main {
         public static void main(String[] args) {
-                // ...existing code... (Weapon-Templates, Enemy-Templates, Room-Templates Setup)
-
-                final int totalSteps = 10;
-                for (int step = 1; step <= totalSteps; step++) {
-                        // Leiste bauen
-                        StringBuilder bar = new StringBuilder();
-                        bar.append('[');
-                        for (int i = 0; i < step; i++)
-                                bar.append('#');
-                        for (int i = step; i < totalSteps; i++)
-                                bar.append(' ');
-                        bar.append(']');
-
-                        // \r setzt den Cursor an den Zeilenanfang, überschreibt die Zeile
-                        System.out.print("\r" + bar);
-                        System.out.flush();
-
-                        try {
-                                // 1 Sekunde Pause
-                                Thread.sleep(400);
-                        } catch (InterruptedException e) {
-                                System.out.println("error");
-                        }
-                }
 
                 HashMap<ItemTemplate, Float> possibleWeapons1 = new HashMap<ItemTemplate, Float>();
                 possibleWeapons1.put(

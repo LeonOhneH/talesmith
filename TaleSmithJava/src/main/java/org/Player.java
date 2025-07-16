@@ -48,7 +48,9 @@ public class Player extends Creature {
     }
 
     private void checkLevelUp() {
-        int expNeeded = level * 10;
+        // Erfahrungspunkte für nächstes Level: exponentiell steigend
+        int expNeeded = level * 10 + (level * level * 5);
+
         if (experience >= expNeeded) {
             level++;
             experience -= expNeeded;
@@ -59,10 +61,15 @@ public class Player extends Creature {
             int agilityIncrease = 1;
 
             setMaxHp(getMaxHp() + hpIncrease);
-            setHp(getMaxHp());
+            setHp(getMaxHp()); // Vollständiges Heilen beim Level-Up
             setAp(getAp() + apIncrease);
             setAgility(getAgility() + agilityIncrease);
         }
+    }
+
+    // Neue Methode zur Berechnung der benötigten EXP für das nächste Level
+    public int getExpNeededForNextLevel() {
+        return level * 10 + (level * level * 5);
     }
 
     // Neue Methode für UI-Layer um Level-Up Informationen zu bekommen
