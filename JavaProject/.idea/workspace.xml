@@ -5,41 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4310f0ae-683b-4d59-9dbb-8ef11186587e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/src/.classpath" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/src/.project" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Creature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Creature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EnemyBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/builder/EnemyBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EnemyTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/EnemyTemplate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/src/JavaProject.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RoomBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/builder/RoomBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RoomTemplate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/RoomTemplate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/.classpath" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/Creature.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/Enemy.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/EnemyBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/EnemyTemplate.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/Game.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/JavaProject.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/Room.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/RoomBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaProject/RoomTemplate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Game/.project" beforeDir="false" afterPath="$PROJECT_DIR$/../Game/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TaleSmith.edit/.project" beforeDir="false" afterPath="$PROJECT_DIR$/../TaleSmith.edit/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TaleSmith.editor/.project" beforeDir="false" afterPath="$PROJECT_DIR$/../TaleSmith.editor/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TaleSmith/.project" beforeDir="false" afterPath="$PROJECT_DIR$/../TaleSmith/.project" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,12 +33,12 @@
     &quot;assignee&quot;: &quot;LeonOhneH&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/LeonOhneH/talesmith.git&quot;,
-    &quot;accountId&quot;: &quot;7039f373-2b50-468c-b321-3fc39414dea0&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/LeonOhneH/talesmith.git",
+    "accountId": "723eb1af-4130-49c2-92b9-a1a7dbb9cea0"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -77,24 +47,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.src.src.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;22&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/leon/talesmith/JavaProject&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.src.src.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "22",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Luca/Desktop/Neuer Ordner/talesmith/TaleSmithJava",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/src" />
@@ -124,8 +95,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17890.1" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17890.1" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
       </set>
     </attachedChunks>
   </component>
@@ -142,6 +113,7 @@
       <workItem from="1752483354072" duration="5823000" />
       <workItem from="1752581783433" duration="2303000" />
       <workItem from="1752584118902" duration="33000" />
+      <workItem from="1752660523968" duration="521000" />
     </task>
     <servers />
   </component>
