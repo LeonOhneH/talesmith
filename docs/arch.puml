@@ -85,6 +85,7 @@ together {
     class RoomTemplate {
         - name: String
         - possibleEnemies: List<EnemyTemplate>
+        - possibleDrops: Map<ItemTemplate, float>
 
         + RoomTemplate()
         + RoomTemplate(name: String)
@@ -98,6 +99,7 @@ together {
         - hp: int
         - ap: int
         - agility: int
+        - possibleDrops: Map<ItemTemplate, float>
 
         + EnemyTemplate()
         + EnemyTemplate(name: String, hp: int, ap: int, agility: int)

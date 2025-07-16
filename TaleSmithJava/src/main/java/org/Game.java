@@ -18,13 +18,16 @@ class Game {
     private String name;
     private List<RoomTemplate> roomTemplates;
     private List<EnemyTemplate> enemyTemplates;
+
     private Player player;
     private Room currentRoom;
-    private Scanner scanner;
-    private Random random;
+    private int difficultyLevel;
+
     private int roomsCleared;
     private int totalEnemiesKilled;
-    private int difficultyLevel;
+
+    private Scanner scanner;
+    private Random random;
 
     public Game() {
         this.scanner = new Scanner(System.in);
@@ -672,7 +675,12 @@ class Game {
 
     public void generateNewRoom() {
         RoomTemplate template = roomTemplates.get(random.nextInt(roomTemplates.size()));
-        this.setCurrentRoom(new RoomBuilder().withTemplateAndDifficulty(template, difficultyLevel).build());
+        this.setCurrentRoom(new RoomBuilder()
+                .withTemplate(template)
+                .withDifficultyLevel(difficultyLevel)
+                .generateEnemies()
+                .build()
+        );
     }
 
     // ...existing code... (getter und setter bleiben unverändert)

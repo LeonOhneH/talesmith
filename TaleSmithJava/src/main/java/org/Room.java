@@ -7,11 +7,13 @@ public class Room {
     private String name;
     private List<Enemy> enemies;
     private boolean cleared;
+    private List<Item> drops;
 
-    public Room(String name, List<Enemy> enemies) {
+    public Room(String name, List<Enemy> enemies, List<Item> drops) {
         this.setName(name);
         this.setEnemies(enemies);
         this.setCleared(false);
+        this.drops = drops;
     }
 
     public String getName() {

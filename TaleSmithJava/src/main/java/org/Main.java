@@ -94,7 +94,7 @@ public class Main {
             possibleEnemysRoom1.add(new EnemyTemplate("Droide", 10, 5, 2, possibleWeapons2));
             List<EnemyTemplate> possibleEnemysRoom2 = new ArrayList<>();
             possibleEnemysRoom0.add(new EnemyTemplate("DarthVader", 90, 10, 5, possibleWeapons1));
-            possibleEnemysRoom0.add(new EnemyTemplate("Klonkrieger", 20, 2, 80, possibleWeapons2));
+            possibleEnemysRoom2.add(new EnemyTemplate("Klonkrieger", 20, 2, 80, possibleWeapons2));
             List<EnemyTemplate> possibleEnemysRoom3 = new ArrayList<>();
             possibleEnemysRoom0.add(new EnemyTemplate("Obi-wan Keniobi", 150, 30, 20, possibleWeapons1));
             possibleEnemysRoom0.add(new EnemyTemplate("DarthVader", 90, 10, 5, possibleWeapons1));
