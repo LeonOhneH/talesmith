@@ -38,24 +38,49 @@ public class Game {
         this.dropService = new DropService();
     }
 
+    // Die start() Methode aktualisieren, um das Neustart-Feature zu unterstützen
     public void start() {
-        renderer.clearScreen();
-        displayWelcome();
+        boolean playAgain = true;
 
-        int result = 0;
-        while (result == 0 && !player.isDead()) {
-            result = roomLoop();
+        while (playAgain) {
+            // Spiel zurücksetzen, falls es nicht der erste Durchlauf ist
+            resetGame();
 
-            if (result == 0) { // Erfolgreich geschafft
-                roomsCleared++;
-                if (roomsCleared % 3 == 0) {
-                    difficultyLevel++;
+            renderer.clearScreen();
+            displayWelcome();
+
+            int result = 0;
+            while (result == 0 && !player.isDead()) {
+                result = roomLoop();
+
+                if (result == 0) { // Erfolgreich geschafft
+                    roomsCleared++;
+                    if (roomsCleared % 3 == 0) {
+                        difficultyLevel++;
+                    }
+                    displayRoomCleared();
                 }
-                displayRoomCleared();
             }
-        }
 
-        displayGameOver();
+            // Spielende anzeigen und fragen, ob eine neue Runde gespielt werden soll
+            playAgain = displayGameOver();
+        }
+    }
+
+    // Diese Methode hinzufügen, um den Spielstatus zurückzusetzen
+    private void resetGame() {
+        roomsCleared = 0;
+        totalEnemiesKilled = 0;
+        difficultyLevel = 1;
+
+        // Spieler zurücksetzen
+        player.setHp(100);
+        player.setMaxHp(100);
+        player.setAp(50);
+        player.setAgility(40);
+        player.setLevel(1);
+        player.setExperience(0);
+        player.getInventory().clear();
     }
 
     private void displayWelcome() {
@@ -522,7 +547,9 @@ public class Game {
         renderer.clearScreen();
     }
 
-    private void displayGameOver() {
+    // Die displayGameOver Methode anpassen, um eine Rückgabe für "Neue Runde" zu
+    // haben
+    private boolean displayGameOver() {
         String rating = "";
         if (roomsCleared >= 50)
             rating = "🌟 LEGENDÄR! 🌟";
@@ -547,10 +574,16 @@ public class Game {
                 "🔥 Schwierigkeit: Level " + difficultyLevel,
                 "🏆 Spieler-Level: " + player.getLevel(),
                 "",
-                "🎖️ " + rating
+                "🎖️ " + rating,
+                "",
+                "Möchtest du noch eine Runde spielen? (j/n): "
         };
 
         renderer.drawBox("SPIEL BEENDET", content);
+
+        // Eingabe abfragen und auswerten
+        String input = renderer.getInput().toLowerCase();
+        return input.equals("j") || input.equals("ja");
     }
 
     private void executeCombatWithAnimation(Player player, Enemy enemy) {
