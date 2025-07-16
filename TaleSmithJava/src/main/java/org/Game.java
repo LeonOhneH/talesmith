@@ -4,10 +4,7 @@ import main.java.org.builder.RoomBuilder;
 import main.java.org.service.CombatService;
 import main.java.org.service.CombatService.*;
 import main.java.org.service.DropService;
-import main.java.org.templates.EnemyTemplate;
-import main.java.org.templates.ItemTemplate;
-import main.java.org.templates.RoomTemplate;
-import main.java.org.templates.WeaponTypeE;
+import main.java.org.templates.*;
 import main.java.org.ui.GameRenderer;
 
 import java.util.ArrayList;
@@ -145,16 +142,18 @@ public class Game {
         content.add("⚡ Initiative: " + player.getAgility() + "   ⚔️ AP: " + player.getAp());
         content.add("");
 
-        // Gegner Status
+        // Gegner Status mit korrekter Ausrichtung
         List<Enemy> allEnemies = currentRoom.getEnemies();
         content.add("👹 Gegner (" + allEnemies.size() + "):");
-        content.add("   # | Name                 | HP       | AP  | Initiative");
-        content.add("   --+----------------------+----------+-----+-----------");
+        // Korrigierter Tabellenkopf mit festen Spaltenbreiten
+        content.add("   # | Name                 | HP       | AP  | Initiative    ");
+        content.add("   --+----------------------+----------+-----+--------------");
 
-        // Alle Gegner anzeigen, nicht nur die ersten 5
+        // Alle Gegner anzeigen mit korrekter Ausrichtung
         for (int i = 0; i < allEnemies.size(); i++) {
             Enemy enemy = allEnemies.get(i);
-            String status = String.format("   %2d | %-20s | %3d/%-4d | %3d | %3d",
+            // Verwende ein konsistentes Format mit festen Spaltenbreiten
+            String status = String.format("   %2d | %-20s | %3d/%-4d | %3d | %-12d",
                     (i + 1),
                     formatName(enemy.getName(), 20),
                     enemy.getHp(),
@@ -201,15 +200,28 @@ public class Game {
             return;
         }
 
-        // Gegner auswählen
+        // Gegner auswählen mit tabellarischer Darstellung
         List<String> content = new ArrayList<>();
         content.add("");
         content.add("⚔️ Welchen Gegner möchtest du angreifen?");
         content.add("");
 
+        // Korrigierter Tabellenkopf mit festen Spaltenbreiten
+        content.add("   # | Name                 | HP       | AP  | Initiative    ");
+        content.add("   --+----------------------+----------+-----+--------------");
+
+        // Gegner-Liste mit ausgerichteten Spalten
         for (int i = 0; i < aliveEnemies.size(); i++) {
             Enemy enemy = aliveEnemies.get(i);
-            content.add((i + 1) + ". " + enemy.getName() + " (HP:" + enemy.getHp() + " AP:" + enemy.getAp() + ")");
+            String formattedRow = String.format("   %2d | %-20s | %3d/%-4d | %3d | %-12d",
+                    (i + 1),
+                    formatName(enemy.getName(), 20),
+                    enemy.getHp(),
+                    enemy.getMaxHp(),
+                    enemy.getAp(),
+                    enemy.getAgility());
+
+            content.add(formattedRow);
         }
 
         content.add("");
