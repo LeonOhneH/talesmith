@@ -310,13 +310,13 @@ public class Game {
         }
 
         // 3. Fallback: Generisches Item, wenn kein Template-Drop verfügbar (8% Chance)
-        if (random.nextFloat() < 0.08f) {
+        if (random.nextFloat() < 0.2f) {
             // Erzeuge einen zufälligen Gegenstand für den Gegner
             Weapon droppedWeapon = new Weapon(
                     "Waffe von " + enemy.getName(),
                     "Erbeutet von " + enemy.getName(),
                     5 + random.nextInt(10), // Zufälliger Schaden 5-15
-                    WeaponTypeE.Schlag // Standard-Typ
+                    WeaponTypeE.class.getEnumConstants()[0]
             );
 
             player.addItem(droppedWeapon);
