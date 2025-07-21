@@ -296,7 +296,7 @@ public class Game {
 
         // 2. Gegnerspezifische Drops (10% Chance)
         if (enemy.getTemplate() != null && enemy.getTemplate().getPossibleDrops() != null &&
-                random.nextFloat() < 0.10f) {
+                random.nextFloat() < 0.3f) {
             // Hier benutzen wir den dropService um Items zu generieren
             List<Item> enemyDrops = dropService.generateDrops(enemy.getTemplate().getPossibleDrops());
 
@@ -310,7 +310,7 @@ public class Game {
         }
 
         // 3. Fallback: Generisches Item, wenn kein Template-Drop verfügbar (8% Chance)
-        if (random.nextFloat() < 0.2f) {
+        if (random.nextFloat() < 0.05f) {
             // Erzeuge einen zufälligen Gegenstand für den Gegner
             Weapon droppedWeapon = new Weapon(
                     "Waffe von " + enemy.getName(),
